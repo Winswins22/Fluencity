@@ -12,8 +12,8 @@ function App() {
     <>
       <Background></Background>
       <GlobalStyle />
-      {/* <Home /> */}
-      <Results />
+      <Home />
+      {/* <Results /> */}
       {/* <LiveText /> */}
       {/* <Testing /> */}
     </>
