@@ -1,10 +1,34 @@
 import React from 'react'
 
-const Results = (wpm = 30, accuracy = 80) => {
+import {
+  Container,
+  Wrapper,
+  LeftColumn,
+  RightColumn,
+
+  HeaderWrapper,
+  StatusContainer,
+} from './Results.elements'
+
+
+const Results = ({ results }) => {
   return (
-    <>
-      <h1>Results</h1>
-    </>
+    <Container>
+      <Wrapper>
+        <LeftColumn>
+          <HeaderWrapper>
+            Your test scores
+          </HeaderWrapper>
+          <StatusContainer>
+
+          </StatusContainer>
+        </LeftColumn>
+        <RightColumn>
+
+        </RightColumn>
+
+      </Wrapper>
+    </Container>
   )
 }
 
