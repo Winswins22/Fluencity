@@ -33,7 +33,7 @@ const LiveText = () => {
     if (data.type === 'message' && data.message.hasOwnProperty('punctuated')) {
       console.log('Live transcript (less accurate): ', data.message.punctuated.transcript)
     }
-    console.log(`Response type: ${data.type}. Object: `, data);
+    // console.log(`Response type: ${data.type}. Object: `, data);
   };
 
   // Fired when the WebSocket closes unexpectedly due to an error or lost connetion
@@ -42,9 +42,9 @@ const LiveText = () => {
   };
 
   // Fired when the WebSocket connection has been closed
-  // ws.onclose = (event) => {
-  //   console.info('Connection to websocket closed');
-  // };
+  ws.onclose = (event) => {
+    console.info('Connection to websocket closed');
+  };
 
   // Fired when the connection succeeds.
   ws.onopen = (event) => {
@@ -67,39 +67,32 @@ const LiveText = () => {
     }));
   };
 
-  let stream = null;
+  // function createStreamAsync(){
+  //   return new Promise((resolve, reject) => {
+  //     stream = navigator.mediaDevices.getUserMedia({ audio: true, video: false })
 
-  function createStreamAsync(){
-    return new Promise((resolve, reject) => {
-      stream = navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+  //     if (stream !== null){
+  //       resolve()
+  //       console.log("Create stream success.", stream)
+  //     }
+  //     else{
+  //       console.log("Create stream failed.")
+  //       reject()
+  //     }
+  //   })
+  // }
 
-      if (stream !== null){
-        resolve()
-        console.log("Create stream success.", stream)
-      }
-      else{
-        console.log("Create stream failed.")
-        reject()
-      }
-    })
-  }
-
-  function createStream(){
-    stream = navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-    console.log("createStream", stream)
+  // function createStream(){
+  //   stream = navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+  //   console.log("createStream", stream)
 
 
-    initStream()
-  }
+  //   initStream()
 
-    /**
-   * The callback function which fires after a user gives the browser permission to use
-   * the computer's microphone. Starts a recording session which sends the audio stream to
-   * the WebSocket endpoint for processing.
-   */
-  const initStream = () => {
 
-    stream = navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+  navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+  .then(function(stream){
+    // stream = navigator.mediaDevices.getUserMedia({ audio: true, video: false })
     console.log("Stream is", stream)
     
     const AudioContext = window.AudioContext;
@@ -122,7 +115,25 @@ const LiveText = () => {
         ws.send(targetBuffer.buffer);
       }
     };
-  };
+  })
+  .catch(function(err) {
+    console.log("err", err)
+  });
+
+  // async function useStream() {
+  //   let stream = null;
+  
+  //   try {
+  //     stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+  //     /* use the stream */
+  //     initStream()
+  //   } catch(err) {
+  //     /* handle the error */
+  //     console.log("getMedia error:", err)
+  //   }
+  // }
+
+  // useStream()
 
 
   // createStreamAsync()
@@ -130,8 +141,6 @@ const LiveText = () => {
   //   .catch(err => console.log("err;", err))
 
   // createStream()
-
-  initStream()
 
   return(
     <>
