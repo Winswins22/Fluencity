@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/Winswins22/voice-with-symblai/static/css/main.a617e044.chunk.css",
+    "main.js": "/Winswins22/voice-with-symblai/static/js/main.840a7b38.chunk.js",
+    "main.js.map": "/Winswins22/voice-with-symblai/static/js/main.840a7b38.chunk.js.map",
+    "runtime-main.js": "/Winswins22/voice-with-symblai/static/js/runtime-main.1354928e.js",
+    "runtime-main.js.map": "/Winswins22/voice-with-symblai/static/js/runtime-main.1354928e.js.map",
+    "static/js/2.ef89bfd4.chunk.js": "/Winswins22/voice-with-symblai/static/js/2.ef89bfd4.chunk.js",
+    "static/js/2.ef89bfd4.chunk.js.map": "/Winswins22/voice-with-symblai/static/js/2.ef89bfd4.chunk.js.map",
+    "index.html": "/Winswins22/voice-with-symblai/index.html",
+    "static/css/main.a617e044.chunk.css.map": "/Winswins22/voice-with-symblai/static/css/main.a617e044.chunk.css.map",
+    "static/js/2.ef89bfd4.chunk.js.LICENSE.txt": "/Winswins22/voice-with-symblai/static/js/2.ef89bfd4.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1354928e.js",
+    "static/js/2.ef89bfd4.chunk.js",
+    "static/css/main.a617e044.chunk.css",
+    "static/js/main.840a7b38.chunk.js"
+  ]
+}
