@@ -19,8 +19,8 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  box-shadow: 5px 5px 25px rgba(56, 118, 29, 0.8);
 
-  box-shadow: 2px 2px 25px rgba(17, 85, 204, 0.8);
 `
 
 export const MiniContainer = styled.div`
