@@ -19,6 +19,8 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+
+  box-shadow: 10px 10px 25px rgba(56, 118, 29, 0.8);
 `
 
 export const Header = styled.h1`
