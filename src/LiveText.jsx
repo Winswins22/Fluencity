@@ -7,7 +7,7 @@ const uniqueMeetingId = btoa("user@example.com");
 const symblEndpoint = `wss://api.symbl.ai/v1/realtime/insights/${uniqueMeetingId}?access_token=${accessToken}`;
 
 // verbose: Log every message (very spammy)
-const LiveText = (verbose = true) => {
+const LiveText = (verbose = false) => {
 
   const [active, setActive] = useState(false)
   const [ready, setReady] = useState(false)
@@ -37,7 +37,7 @@ const LiveText = (verbose = true) => {
     else if (!active){
       return "(Enable the Websocket)"
     }
-    return "Error??"
+    return ""
   }
 
   const ws = new WebSocket(symblEndpoint);
@@ -109,7 +109,14 @@ const LiveText = (verbose = true) => {
     }));
   };
 
+  window.onbeforeunload = function() {
+    ws.onclose = function () {}; // disable onclose handler first
+    ws.close();
+  };
+
   function start(){
+
+    console.warn("ws before", ws.readyState, ws)
 
     console.log("Starting Websocket")
     setActive(true)
@@ -138,6 +145,7 @@ const LiveText = (verbose = true) => {
         if (ws.readyState === WebSocket.OPEN) {
           ws.send(targetBuffer.buffer);
           setReady(true)
+          console.warn("ws after", ws.readyState, ws)
         }
       };
     })
@@ -155,6 +163,7 @@ const LiveText = (verbose = true) => {
       setAccMsg(null)
       setMsg(null)
     }
+    console.warn("ws closed?", ws.readyState, ws)
   }
 
   // async function useStream() {
@@ -199,4 +208,3 @@ const LiveText = (verbose = true) => {
 }
 
 export default LiveText
-
