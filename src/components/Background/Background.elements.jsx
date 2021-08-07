@@ -8,6 +8,8 @@ import BgImg4 from "../../images/BgImg4.png"
 import BgImg5 from "../../images/BgImg5.png"
 import BgImg6 from "../../images/BgImg6.png"
 
+
+
 export const BackgroundAndNav = styled.div`
     padding: 0;
     margin: 0;
