@@ -10,6 +10,28 @@ const LiveText = () => {
 
   const [active, setActive] = useState(false)
 
+  const [msg, setMsg] = useState()
+  const [accurateMsg, setAccMsg] = useState()
+
+  function getMessage(){
+    if (msg && accurateMsg){
+      if (accurateMsg.length === msg.length){
+        return accurateMsg
+      }
+      else{
+        return msg
+      }
+    }
+    else if (msg){
+      return msg
+    }
+    
+    if (active){
+      return "(Say something!)"
+    }
+    return "(Enable the Websocket)"
+  }
+
   const ws = new WebSocket(symblEndpoint);
 
   // Fired when a message is received from the WebSocket server
@@ -22,6 +44,7 @@ const LiveText = () => {
     if (data.type === 'message_response') {
       for (let message of data.messages) {
         console.log('Transcript (more accurate): ', message.payload.content);
+        setAccMsg(message.payload.content)
       }
     }
     if (data.type === 'topic_response') {
@@ -36,6 +59,7 @@ const LiveText = () => {
     }
     if (data.type === 'message' && data.message.hasOwnProperty('punctuated')) {
       console.log('Live transcript (less accurate): ', data.message.punctuated.transcript)
+      setMsg(data.message.punctuated.transcript)
     }
     // console.log(`Response type: ${data.type}. Object: `, data);
   };
@@ -139,6 +163,9 @@ const LiveText = () => {
 
   return(
   <>
+    <h1> You said .... </h1>
+    <h2> {getMessage()} </h2>
+
     {
       !active ?
         <Button variant="contained" color="primary" onClick={() => start()}>
