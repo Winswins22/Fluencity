@@ -1,12 +1,12 @@
 import './App.css';
 import LiveText from './LiveText'
+import Background from './components/Background/Background'
 
 
 function App() {
   return (
     <>
-      <h1>Hello, World</h1>
-      <LiveText></LiveText>
+      <Background></Background>
     </>
   );
 }
