@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Select from "react-dropdown-select";
+
 import {
   Container,
   Wrapper,
@@ -13,6 +14,7 @@ import {
   Main Components
 */
 
+
 const Home = () => {
 
   // test duration in seconds
@@ -23,22 +25,13 @@ const Home = () => {
 
   const durationOptions = [
     {
-      label: "10s", value: 10,
+      label: "1 minute", value: 60,
     },
     {
-      label: "20s", value: 20,
+      label: "2 minutes", value: 120,
     },
     {
-      label: "30s", value: 30,
-    },
-    {
-      label: "1min", value: 60,
-    },
-    {
-      label: "2mins", value: 120,
-    },
-    {
-      label: "5mins", value: 300,
+      label: "5 minutes", value: 300,
     }];
 
   const levelOptions = [
@@ -63,7 +56,7 @@ const Home = () => {
     outline: "none",
     border: "none",
     boxShadow: "none",
-    fontSize: "14px",
+    fontSize: "20px",
   }
   return (
     <Container>
@@ -76,10 +69,11 @@ const Home = () => {
 
         <InfoContainer>
           <SelectWrapper>
-            <Select
+            <Select 
+              isSearchable={false}
               style={selectStyle}
               options={durationOptions}
-              placeholder="Test Durations"
+              placeholder="Test Duration"
               onChange={value => setState({ ...state, duration: value[0].value })}
 
             />
@@ -89,9 +83,10 @@ const Home = () => {
         <InfoContainer>
           <SelectWrapper>
             <Select
+              isSearchable={false}
               style={selectStyle}
               options={levelOptions}
-              placeholder="Test Durations"
+              placeholder="Text Difficulty"
               onChange={value => setState({ ...state, level: value[0].value })}
             />
           </SelectWrapper>

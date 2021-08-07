@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import img from '../../imgs/Homebg.jpg';
+
 
 export const Container = styled.div`
   display: flex;
@@ -8,23 +10,30 @@ export const Container = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-`
+  `
 
 export const Wrapper = styled.div`
-  background: #ddd;
   width: 60%;
   height: 60%;
-  padding: 75px;
+  padding: 50px;
 
   display: flex;
   align-items: center;
   flex-direction: column;
 
   box-shadow: 10px 10px 25px rgba(56, 118, 29, 0.8);
+
+
+  background-image: url(${img});
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 20px;
 `
 
-export const Header = styled.h1`
-  font-size: 21px;
+export const Header = styled.p`
+  font-size: 40px;
+  color: #6aa84f;
+  padding: 0 0 10px 0;
 `
 
 export const InfoContainer = styled.div`
@@ -39,7 +48,7 @@ export const StartButton = styled.div`
   font-size: 28px;
   background: #ecf6e9ff;
   border-radius: 50px;
-  border: 1px solid;
+  border: 1px solid #666666;
   
   width: 25%;
   height: 80%;
@@ -55,6 +64,7 @@ export const StartButton = styled.div`
 export const SelectWrapper = styled.div`
   border: 1px solid #a4a7b5;
   border-radius: 50px;
-  height: 100%;
-  width: 20%;
+  height: 110%;
+  width: 41.1%;
+  padding: 5px 10px 0 10px;
 `
