@@ -8,13 +8,9 @@ function App() {
   return (
     <>
       <GlobalStyle />
-<<<<<<< HEAD
       {/* <Home /> */}
       <Testing />
-=======
-      <Results />
-
->>>>>>> f75be6f897bf043eb2b5adefab3aad5ae77d4fe4
+      {/* <Results /> */}
     </>
   );
 }
