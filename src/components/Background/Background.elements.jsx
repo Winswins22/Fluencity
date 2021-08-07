@@ -27,14 +27,14 @@ export const Nav = styled.div`
     background-size: 100%;
 `
 
-export const Logo = styled.img`
-    /* display: block; */
-    /* margin-left: auto; */
-    /* margin-right: auto; */
-    /* padding-top: 100px; */
-    height: 15vh;
+export const Logo = styled.div`
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 100px;
+    height: 5vh;
     width: 200px;
-    /* border: 3px solid red; */
+    /* border:2px solid red; */
     background-image: url(${LogoImg});
     background-repeat: no-repeat;
 `
@@ -71,10 +71,11 @@ export const BgPic1 = styled.div`
     left: 30vh;
     top: 10vh;
     z-index: 2;
+    transform: rotate(-10deg);
 `
 export const BgPic2 = styled.div`
-    width: 250px;
-    height: 200px;
+    width: 350px;
+    height: 250px;
     background-size: 100%;
     background-image: url(${BgImg2});
     background-repeat: no-repeat;
@@ -82,6 +83,7 @@ export const BgPic2 = styled.div`
     left: 100vh;
     top: 5vh;
     z-index: 1;
+    transform: rotate(7deg);
 `
 export const BgPic3 = styled.div`
     width: 250px;
@@ -93,32 +95,35 @@ export const BgPic3 = styled.div`
     right: 20vh;
     top: 5vh;
     z-index: 1;
+    transform: rotate(-13deg);
 `
 export const BgPic4 = styled.div`
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
     background-size: 100%;
     background-image: url(${BgImg4});
     background-repeat: no-repeat;
     position: absolute;
     left: 20vh;
-    bottom: 20vh;
+    bottom: 15vh;
     z-index: 2;
+    transform: rotate(10deg);
 `
 export const BgPic5 = styled.div`
-    width: 250px;
-    height: 200px;
+    width: 300px;
+    height: 250px;
     background-size: 100%;
     background-image: url(${BgImg5});
     background-repeat: no-repeat;
     position: absolute;
     left: 120vh;
-    bottom: 5vh;
+    bottom: 0;
     z-index: 2;
+    transform: rotate(-5deg);
 `
 export const BgPic6 = styled.div`
-    width: 300px;
-    height: 200px;
+    width: 400px;
+    height: 300px;
     background-size: 100%;
     background-image: url(${BgImg6});
     background-repeat: no-repeat;
@@ -126,4 +131,5 @@ export const BgPic6 = styled.div`
     right: 0;
     bottom: 30vh;
     z-index: 1;
+    transform: rotate(10deg);
 `
