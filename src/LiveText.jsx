@@ -1,10 +1,44 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
-const accessToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFVUTRNemhDUVVWQk1rTkJNemszUTBNMlFVVTRRekkyUmpWQ056VTJRelUxUTBVeE5EZzFNUSJ9.eyJodHRwczovL3BsYXRmb3JtLnN5bWJsLmFpL3VzZXJJZCI6IjQ3MDM1NjUxNjg3NzEwNzIiLCJpc3MiOiJodHRwczovL2RpcmVjdC1wbGF0Zm9ybS5hdXRoMC5jb20vIiwic3ViIjoiOUJ4NmtxaFk5MGFwRTdjZmtwWnZBdlVLNTY0SHl0UFdAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vcGxhdGZvcm0ucmFtbWVyLmFpIiwiaWF0IjoxNjI4MzQyMDM2LCJleHAiOjE2Mjg0Mjg0MzYsImF6cCI6IjlCeDZrcWhZOTBhcEU3Y2ZrcFp2QXZVSzU2NEh5dFBXIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.NR8IfNT9dB5CQu5PnxyTx1w5m13iFG0gYE12wm9mMFC3cyn9QYdc8aPBuyZZo0RoqwjJWo07RxNBTD2mfbojuUE7v20ZUytGU6FUFP1OLaMaCs3UsoqG7nUCmgHUCwlY2Tnix8hhDBDr7m4vYTod3FgOKCmwNItipX4ifejL39tOxQtTfGbxm4aH78pJrbIo0OAfhlIRF_q1XCaZif_0kUrLH4oEFiEJdE_ceaDjl02vwiSVy32L5Zp_QjpPdaPxnjv9DsAd5-8cRx3SxcIeXmAqX1TCOXmYt1uT1mhLmb3SfclPPhAIOOcK5CCNWTeMPJx0xNDPqa8kFaPwXssigA";
+import Button from '@material-ui/core/Button';
+
+const accessToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFVUTRNemhDUVVWQk1rTkJNemszUTBNMlFVVTRRekkyUmpWQ056VTJRelUxUTBVeE5EZzFNUSJ9.eyJodHRwczovL3BsYXRmb3JtLnN5bWJsLmFpL3VzZXJJZCI6IjY2NzQ1OTgxMzg0Nzg1OTIiLCJpc3MiOiJodHRwczovL2RpcmVjdC1wbGF0Zm9ybS5hdXRoMC5jb20vIiwic3ViIjoieU9vM3hNTUZYaTE2YXdiRjFzdk9IallleE9VaHhVTVBAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vcGxhdGZvcm0ucmFtbWVyLmFpIiwiaWF0IjoxNjI4Mjk2NDMzLCJleHAiOjE2MjgzODI4MzMsImF6cCI6InlPbzN4TU1GWGkxNmF3YkYxc3ZPSGpZZXhPVWh4VU1QIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.f0WNHMC9U6WqI-V4j-mxd3PnaOia9Q9WUYgY5SW9p_Jj9rokxszSfESEA6mNFeEXA3cO9ioR5Zd-STKvcvwoZ2GmVNSDTCSQ0hR0ZpJc8wbmES65hEuJ2pPRaXSDLJs_d66nrtTJd8VB5DBk6v7vqBfDFAmRRBCZfsggxPomIancpo0BbXLrsso2pTwbw-SmDgQItaN6fhGg-T_N3SMsrD3rpZft6awa5wloY3n8UAhxQ-fgZLUEWAtOnfE-IfWPFDnA-Ztj1dcoy0enb_x2aYFHy6jwT491GRwLLtoLNq2rk-rpW04BYrGHA_c_DvZBeWKPgvGl0WSKCUBtzDJegA";
 const uniqueMeetingId = btoa("user@example.com");
 const symblEndpoint = `wss://api.symbl.ai/v1/realtime/insights/${uniqueMeetingId}?access_token=${accessToken}`;
 
-const LiveText = () => {
+// verbose: Log every message (very spammy)
+const LiveText = (verbose = false) => {
+
+  const [active, setActive] = useState(false)
+  const [ready, setReady] = useState(false)
+
+  const [msg, setMsg] = useState()
+  const [accurateMsg, setAccMsg] = useState()
+
+  function getMessage(){
+    if (msg && accurateMsg){
+      if (accurateMsg.length === msg.length){
+        return accurateMsg
+      }
+      else{
+        return msg
+      }
+    }
+    else if (msg){
+      return msg
+    }
+    
+    if (active && ready){
+      return "(Say something!)"
+    }
+    else if (active  && !ready){
+      return "(Initializing)"
+    }
+    else if (!active){
+      return "(Enable the Websocket)"
+    }
+    return ""
+  }
 
   const ws = new WebSocket(symblEndpoint);
 
@@ -17,12 +51,17 @@ const LiveText = () => {
     }
     if (data.type === 'message_response') {
       for (let message of data.messages) {
-        console.log('Transcript (more accurate): ', message.payload.content);
+        if (verbose){
+          console.log('Transcript (more accurate): ', message.payload.content);
+        }
+        setAccMsg(message.payload.content)
       }
     }
     if (data.type === 'topic_response') {
       for (let topic of data.topics) {
-        console.log('Topic detected: ', topic.phrases)
+        if (verbose){
+          console.log('Topic detected: ', topic.phrases)
+        }
       }
     }
     if (data.type === 'insight_response') {
@@ -31,9 +70,12 @@ const LiveText = () => {
       }
     }
     if (data.type === 'message' && data.message.hasOwnProperty('punctuated')) {
-      console.log('Live transcript (less accurate): ', data.message.punctuated.transcript)
+      if (verbose){
+        console.log('Live transcript (less accurate): ', data.message.punctuated.transcript)
+      }
+      setMsg(data.message.punctuated.transcript)
     }
-    console.log(`Response type: ${data.type}. Object: `, data);
+    // console.log(`Response type: ${data.type}. Object: `, data);
   };
 
   // Fired when the WebSocket closes unexpectedly due to an error or lost connetion
@@ -42,9 +84,9 @@ const LiveText = () => {
   };
 
   // Fired when the WebSocket connection has been closed
-  // ws.onclose = (event) => {
-  //   console.info('Connection to websocket closed');
-  // };
+  ws.onclose = (event) => {
+    console.info('Connection to websocket closed');
+  };
 
   // Fired when the connection succeeds.
   ws.onopen = (event) => {
@@ -67,62 +109,77 @@ const LiveText = () => {
     }));
   };
 
-  let stream = null;
-
-  function createStreamAsync(){
-    return new Promise((resolve, reject) => {
-      stream = navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-
-      if (stream !== null){
-        resolve()
-        console.log("Create stream success.", stream)
-      }
-      else{
-        console.log("Create stream failed.")
-        reject()
-      }
-    })
-  }
-
-  function createStream(){
-    stream = navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-    console.log("createStream", stream)
-
-
-    initStream()
-  }
-
-    /**
-   * The callback function which fires after a user gives the browser permission to use
-   * the computer's microphone. Starts a recording session which sends the audio stream to
-   * the WebSocket endpoint for processing.
-   */
-  const initStream = () => {
-
-    stream = navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-    console.log("Stream is", stream)
-    
-    const AudioContext = window.AudioContext;
-    const context = new AudioContext();
-    const source = context.createMediaStreamSource(stream);
-    const processor = context.createScriptProcessor(1024, 1, 1);
-    const gainNode = context.createGain();
-    source.connect(gainNode);
-    gainNode.connect(processor);
-    processor.connect(context.destination);
-    processor.onaudioprocess = (e) => {
-      // convert to 16-bit payload
-      const inputData = e.inputBuffer.getChannelData(0) || new Float32Array(this.bufferSize);
-      const targetBuffer = new Int16Array(inputData.length);
-      for (let index = inputData.length; index > 0; index--) {
-          targetBuffer[index] = 32767 * Math.min(1, inputData[index]);
-      }
-      // Send audio stream to websocket.
-      if (ws.readyState === WebSocket.OPEN) {
-        ws.send(targetBuffer.buffer);
-      }
-    };
+  window.onbeforeunload = function() {
+    ws.onclose = function () {}; // disable onclose handler first
+    ws.close();
   };
+
+  function start(){
+
+    console.warn("ws before", ws.readyState, ws)
+
+    console.log("Starting Websocket")
+    setActive(true)
+
+    navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+    .then(function(stream){
+      // stream = navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+      console.log("Stream is", stream)
+      
+      const AudioContext = window.AudioContext;
+      const context = new AudioContext();
+      const source = context.createMediaStreamSource(stream);
+      const processor = context.createScriptProcessor(1024, 1, 1);
+      const gainNode = context.createGain();
+      source.connect(gainNode);
+      gainNode.connect(processor);
+      processor.connect(context.destination);
+      processor.onaudioprocess = (e) => {
+        // convert to 16-bit payload
+        const inputData = e.inputBuffer.getChannelData(0) || new Float32Array(this.bufferSize);
+        const targetBuffer = new Int16Array(inputData.length);
+        for (let index = inputData.length; index > 0; index--) {
+            targetBuffer[index] = 32767 * Math.min(1, inputData[index]);
+        }
+        // Send audio stream to websocket.
+        if (ws.readyState === WebSocket.OPEN) {
+          ws.send(targetBuffer.buffer);
+          setReady(true)
+          console.warn("ws after", ws.readyState, ws)
+        }
+      };
+    })
+    .catch(function(err) {
+      console.log("err", err)
+    });
+  }
+
+  function stop(){
+    if (ws){
+      console.log("Closing Websocket")
+      ws.close()
+      setActive(false)
+      setReady(false)
+      setAccMsg(null)
+      setMsg(null)
+    }
+    console.warn("ws closed?", ws.readyState, ws)
+  }
+
+  // async function useStream() {
+  //   let stream = null;
+  
+  //   try {
+  //     stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+  //     /* use the stream */
+  //     initStream()
+  //   } catch(err) {
+  //     /* handle the error */
+  //     console.log("getMedia error:", err)
+  //   }
+  // }
+
+  // useStream()
 
 
   // createStreamAsync()
@@ -131,14 +188,23 @@ const LiveText = () => {
 
   // createStream()
 
-  initStream()
-
   return(
-    <>
+  <>
+    <h1> You said .... </h1>
+    <h2> {getMessage()} </h2>
 
+    {
+      !active ?
+        <Button variant="contained" color="primary" onClick={() => start()}>
+          Start!
+        </Button>
+      :
+        <Button variant="contained" color="secondary" onClick={() => stop()}>
+          Stop!
+        </Button>
+    }
     </>
   )
 }
 
 export default LiveText
-

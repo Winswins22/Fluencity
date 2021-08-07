@@ -1,12 +1,19 @@
-import './App.css';
 import LiveText from './LiveText'
 
+import { Home } from './components'
+import { Testing } from './components'
+
+import GlobalStyle from './GlobalStyles'
+import Results from './components/Results/Results'
 
 function App() {
   return (
     <>
-      <h1>Hello, World</h1>
-      <LiveText></LiveText>
+      <GlobalStyle />
+      <Home />
+      {/* <LiveText /> */}
+      {/* <Testing /> */}
+      {/* <Results /> */}
     </>
   );
 }
