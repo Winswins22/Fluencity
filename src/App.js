@@ -1,4 +1,3 @@
-import './App.css';
 import LiveText from './LiveText'
 
 import { Home } from './components'
@@ -10,9 +9,9 @@ import Results from './components/Results/Results'
 function App() {
   return (
     <>
-      <LiveText></LiveText>
       <GlobalStyle />
       <Home />
+      {/* <LiveText /> */}
       {/* <Testing /> */}
       {/* <Results /> */}
     </>
