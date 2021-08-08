@@ -3,7 +3,11 @@ import { BackgroundAndNav } from './Background.elements'
 import { Nav } from './Background.elements'
 import { Logo } from './Background.elements'
 import { NavLinks } from './Background.elements'
-import { ModeHeader } from './Background.elements'
+import { 
+    ModeHeader,
+    InDevelopmentModes,
+    InDevelopmentText
+} from './Background.elements'
 import { BgPic1 } from './Background.elements'
 import { BgPic2 } from './Background.elements'
 import { BgPic3 } from './Background.elements'
@@ -32,8 +36,14 @@ export const Background = () => {
                 <NavLinks onClick={() => {HandleNavigation('Results')}}>Results</NavLinks>
                 <ModeHeader>Modes</ModeHeader>
                 <NavLinks onClick={() => {HandleNavigation('Testing')}}>Speaking</NavLinks>
-                <NavLinks>Singing</NavLinks>
-                <NavLinks>Rapping</NavLinks>
+                <InDevelopmentModes>
+                    Singing
+                    <InDevelopmentText>   (In Development)</InDevelopmentText>
+                </InDevelopmentModes>
+                <InDevelopmentModes>
+                    Rapping
+                    <InDevelopmentText>(In Development)</InDevelopmentText>
+                </InDevelopmentModes>
             </Nav>
 
             <BgPic1></BgPic1>

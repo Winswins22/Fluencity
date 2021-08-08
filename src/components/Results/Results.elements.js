@@ -19,9 +19,7 @@ export const Wrapper = styled.div`
   padding: 20px;
   
   display: flex;
-
   flex-direction: row;
-
 
   box-shadow: 5px 5px 25px rgba(56, 118, 29, 0.8);
 `
