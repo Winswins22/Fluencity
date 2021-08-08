@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useRef } from 'react'
 import { ImCross } from 'react-icons/im'
 import {
   Container,
@@ -14,7 +14,8 @@ import VerifyText from './VerifyText'
 
 export const Testing = ({ setCurrentPage, state }) => {
 
-  const [ready, setReady] = useState(false);
+  // const [ready, setReady] = useState(false);
+  const readyRef = useRef(0);
 
   let duration = 20;
 
@@ -87,7 +88,7 @@ export const Testing = ({ setCurrentPage, state }) => {
 
           <InfoSec>
 
-            <VerifyText difficulty={state.Level} setReady={setReady}></VerifyText>
+            <VerifyText difficulty={state.Level} readyRef={readyRef}></VerifyText>
 
           </InfoSec>
 
