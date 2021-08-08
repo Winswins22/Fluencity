@@ -20,7 +20,7 @@ function App() {
 
   // global variables to keep track of
   const [state, setState] = useState({
-    duration: 0,
+    duration: 5,
     Level: 0,
     results: {
       wpm: 0,

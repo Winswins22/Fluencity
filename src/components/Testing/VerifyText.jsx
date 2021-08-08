@@ -9,7 +9,7 @@ const VerifyText = ({setReady, difficulty=1}) => {
   const [prevMessage, setPrevMessage] = useState("")
   const [message, setMessage] = useState("")
 
-  const items = GetText(difficulty)
+  const [items, setItems] = useState(GetText(difficulty))
 
   const title = items.title
 
