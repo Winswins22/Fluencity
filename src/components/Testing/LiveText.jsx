@@ -335,7 +335,7 @@ const LiveText = ({setCurrentPage, state, setState, difficulty = 1, verbose = tr
 
   if (!started){
     setStart(true)
-    start()
+    //start()
   }
 
   return(
