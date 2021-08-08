@@ -145,7 +145,6 @@ const LiveText = (verbose = false) => {
         if (ws.readyState === WebSocket.OPEN) {
           ws.send(targetBuffer.buffer);
           setReady(true)
-          console.warn("ws after", ws.readyState, ws)
         }
       };
     })
@@ -163,7 +162,6 @@ const LiveText = (verbose = false) => {
       setAccMsg(null)
       setMsg(null)
     }
-    console.warn("ws closed?", ws.readyState, ws)
   }
 
   // async function useStream() {
