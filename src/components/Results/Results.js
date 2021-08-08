@@ -7,13 +7,6 @@ import {
   RightColumn,
 
   HeaderWrapper,
-<<<<<<< HEAD
-  StatusContainer,
-} from './Results.elements'
-
-
-const Results = ({ results }) => {
-=======
 
   StatusContainer,
   StatusWrapper,
@@ -125,7 +118,6 @@ const Results = ({ results }) => {
     )
   }
 
->>>>>>> UI-design
   return (
     <Container>
       <Wrapper>
@@ -133,18 +125,6 @@ const Results = ({ results }) => {
           <HeaderWrapper>
             Your test scores
           </HeaderWrapper>
-<<<<<<< HEAD
-          <StatusContainer>
-
-          </StatusContainer>
-        </LeftColumn>
-        <RightColumn>
-
-        </RightColumn>
-
-      </Wrapper>
-    </Container>
-=======
 
           <Status />
 
@@ -159,7 +139,6 @@ const Results = ({ results }) => {
 
       </Wrapper>
     </Container >
->>>>>>> UI-design
   )
 }
 

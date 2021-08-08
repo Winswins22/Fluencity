@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import img from '../../imgs/Homebg.jpg';
 
 export const Container = styled.div`
   display: flex;
@@ -11,7 +12,9 @@ export const Container = styled.div`
 `
 
 export const Wrapper = styled.div`
-  background: #ddd;
+  background-image: url(${img});
+  background-repeat: no-repeat;
+  background-size: cover;
   width: 60%;
   height: 60%;
   padding: 20px;
