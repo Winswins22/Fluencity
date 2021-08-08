@@ -32,7 +32,7 @@ export const Testing = ({ setCurrentPage, state, setState }) => {
 
   const hanleTimeUp = () => {
     if (timeLeft === 0) {
-      // Go to results
+      setCurrentPage("Results");
     }
   }
 

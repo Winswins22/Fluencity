@@ -24,18 +24,18 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
   const wordsToDisplay = items.text.split(" ")
   const wordsToSay = items.text.split(/[ ,]+/)
 
-  const [currentIndex, setIndex] = useState(0)
-  const [correct, setCorrect] = useState(0)
-  const [wrong, setWrong] = useState(0)
+  const currentIndexRef = useRef(0);
+  const correctRef = useRef(0);
+  const wrongRef = useRef(0);
 
   function finishState(){
     setState({
       duration: 0,
       Level: ogState.Level,
       results: {
-        wpm: Math.round((correct+wrong)/ogState.duration),
-        acc: Math.round(correct/(correct+wrong)).toString(),
-        result: Math.round((correct+wrong)/ogState.duration) * Math.round(correct/(correct+wrong)).toString()
+        wpm: Math.round((correctRef.current+wrongRef.current)/ogState.duration),
+        acc: Math.round(correctRef.current/(correctRef.current+wrongRef.current)).toString(),
+        result: Math.round((correctRef.current+wrongRef.current)/ogState.duration) * Math.round(correctRef.current/(correctRef.current+wrongRef.current)).toString()
       }
     })
 
@@ -43,17 +43,17 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
       duration: 0,
       Level: ogState.Level,
       results: {
-        wpm: Math.round((correct+wrong)/ogState.duration),
-        acc: Math.round(correct/(correct+wrong)).toString(),
-        result: Math.round((correct+wrong)/ogState.duration) * Math.round(correct/(correct+wrong)).toString()
+        wpm: Math.round((correctRef.current+wrongRef.current)/ogState.duration),
+        acc: Math.round(correctRef.current/(correctRef.current+wrongRef.current)).toString(),
+        result: Math.round((correctRef.current+wrongRef.current)/ogState.duration) * Math.round(correctRef.current/(correctRef.current+wrongRef.current)).toString()
       }
     })
   }
 
-  setTimeout(() => {
-    alert("via timeout")
-    finishState()
-  }, state.duration * 1000)
+  // setTimeout(() => {
+  //   alert("via timeout")
+  //   finishState()
+  // }, state.duration * 1000)
 
   function extractNewWords(){
     console.log("extractNewWords", message, prevMessage)
@@ -143,7 +143,7 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
 
   function checkWords(){
 
-    if (currentIndex === wordsToSay.length){
+    if (currentIndexRef.current === wordsToSay.length){
       alert("via length")
       finishState()
     }
@@ -151,14 +151,14 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
     let arry = bestMsg.split(" ");
 
     for (let i = 0; i < arry.length; i ++){
-      if (arry[i].toLowerCase === wordsToSay[currentIndex].toLowerCase){
-        setCorrect(correct + 1)
-        setIndex(currentIndex + 1)
+      if (arry[i].toLowerCase === wordsToSay[currentIndexRef.current].toLowerCase){
+        correctRef.current = correctRef.current + 1;
+        currentIndexRef.current = currentIndexRef.current + 1
         return
       }
     }
-    setWrong(wrong + 1)
-    setIndex(currentIndex + 1)
+    wrongRef.current = wrongRef.current + 1;
+    currentIndexRef.current = currentIndexRef.current + 1
     return
     
   }
