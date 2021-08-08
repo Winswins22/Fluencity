@@ -19,7 +19,7 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
   const readyRef = useRef(false)
   const title = items.title
 
-  const wordsToDisplay = items.text.split(" ")
+  const wordsToDisplay = items.text
   const wordsToSay = items.text.split(/[ ,]+/)
 
   const [currentIndex, setIndex] = useState(0)
@@ -49,7 +49,6 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
   }
 
   setTimeout(() => {
-    alert("via timeout")
     finishState()
   }, state.duration * 1000)
 
@@ -77,17 +76,9 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
   function outputWords(){
     return (
       <div style={{marginTop:"20vh"}}>
-        {
-          wordsToDisplay.map((word) => {
-          return(
-            <>
-              
-              <h2 style={{display: "inline"}}> {word} </h2>
-              
-            </>
-          )
-          })
-        }
+
+        {wordsToDisplay}
+
       </div>
     )
   }
@@ -142,7 +133,6 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
   function checkWords(){
 
     if (currentIndex === wordsToSay.length){
-      alert("via length")
       finishState()
     }
 
