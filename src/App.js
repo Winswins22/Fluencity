@@ -10,7 +10,7 @@ import GlobalStyle from './GlobalStyles'
 function App() {
   return (
     <>
-      <Background/>
+      <Background />
       <GlobalStyle />
       {/* <Home /> */}
       {/* <LiveText /> */}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { ImCross } from 'react-icons/im'
 import {
   Container,
@@ -12,6 +12,36 @@ import {
 } from './Testing.elements'
 
 const Testing = () => {
+
+  let duration = 10;
+
+  const [timeLeft, setTimeLeft] = useState(duration); // in seconds
+
+  const FormatTime = (time) => {
+    // format Duration to mm:ss
+    let MM = Math.floor(time / 60);
+    let SS = time % 60;
+    return MM + ":" + SS;
+  }
+
+  const Tick = (time) => setTimeLeft(timeLeft-1);
+
+  const hanleTimeUp = () => {
+    if (timeLeft === 0) {
+      // Go to results
+    }
+  }
+
+  useEffect(() => {
+    if (timeLeft === 0) return;
+    const timer = setTimeout(() => {
+      Tick(timeLeft);
+    }, 1000);
+    return () => clearTimeout(timer);
+  });
+
+  hanleTimeUp();
+  console.log(FormatTime(timeLeft));
   return (
     <Container>
       <Wrapper>
