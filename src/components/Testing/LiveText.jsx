@@ -2,6 +2,10 @@ import React, { useState, useEffect, useRef } from 'react'
 import GetText from './GetText'
 
 import Button from '@material-ui/core/Button';
+function getRandomNumberBetween(min,max){
+  return Math.floor(Math.random()*(max-min+1)+min);
+}
+
 
 const accessToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFVUTRNemhDUVVWQk1rTkJNemszUTBNMlFVVTRRekkyUmpWQ056VTJRelUxUTBVeE5EZzFNUSJ9.eyJodHRwczovL3BsYXRmb3JtLnN5bWJsLmFpL3VzZXJJZCI6IjY0OTY0NDM5MDE2NzM0NzIiLCJpc3MiOiJodHRwczovL2RpcmVjdC1wbGF0Zm9ybS5hdXRoMC5jb20vIiwic3ViIjoiS0lIZzhXbWNhYVVheEZSRFVpSmNadThJWk1WVXcwa2VAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vcGxhdGZvcm0ucmFtbWVyLmFpIiwiaWF0IjoxNjI4NDE2MDcyLCJleHAiOjE2Mjg1MDI0NzIsImF6cCI6IktJSGc4V21jYWFVYXhGUkRVaUpjWnU4SVpNVlV3MGtlIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.ILFJTiSp9lelL3VU3NuCjMgqRu9I9GKG7XYVtRN-e9FgQ7mJnYqSoQatAc31eLZCbeNDYt2rzJ6BaTahvM1lqzbvc0cdtayPVomqsb_N2gmnhFIYtKpfkEBL4GIJVTlAR63xCCTPA0oDKHP7gQ4_QNEvIgauRMQ-lswSqO9O39NY_MdaB6j0ODjYMHCR5Q-wvlDELx-B8FXpYA5J4p4uKIYxpD7ruo4VnxuuHgEZ6RSvzf_AhleHq7E1siRB6O8RQes9fDW2MUdYb3_GGNelGGQUo29u5YMRPUBiNWxDwM2HhKODFAGj-F_jyJTUljb37EdzX1gKQ4PXdQ8rvbNhVg" 
 const uniqueMeetingId = btoa("user@example.com");
@@ -38,13 +42,17 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
       }
     })
 
-    console.warn("finishState", {
+    let a = getRandomNumberBetween(0, 30)
+    let b = getRandomNumberBetween(50, 100) / 100
+    let c = Math.round(a * b)
+
+    setState({
       duration: 0,
       Level: ogState.Level,
       results: {
-        wpm: Math.round((correctRef.current+wrongRef.current)/ogState.duration),
-        acc: Math.round(correctRef.current/(correctRef.current+wrongRef.current)).toString(),
-        result: Math.round((correctRef.current+wrongRef.current)/ogState.duration) * Math.round(correctRef.current/(correctRef.current+wrongRef.current)).toString()
+        wpm: a,
+        acc: b,
+        result: c
       }
     })
   }
@@ -134,7 +142,7 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
   function checkWords(){
     try{
       if (currentIndexRef.current === wordsToSay.length){
-        alert("via length")
+        //alert("via length")
         finishState()
       }
   
