@@ -12,10 +12,10 @@ function App() {
     <>
       <Background></Background>
       <GlobalStyle />
-      <Home />
-      {/* <Results /> */}
+      {/* <Home /> */}
       {/* <LiveText /> */}
-      {/* <Testing /> */}
+      <Testing />
+      {/* <Results /> */}
     </>
   );
 }
