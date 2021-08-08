@@ -19,6 +19,8 @@ export const Testing = ({ setCurrentPage, state, setState }) => {
 
   let duration = 20;
 
+  const [show, setShow] = useState(true)
+
   const [timeLeft, setTimeLeft] = useState(state.duration); // in seconds
 
   const FormatTime = (time) => {
@@ -27,6 +29,10 @@ export const Testing = ({ setCurrentPage, state, setState }) => {
     let SS = time % 60;
     return MM + ":" + SS;
   }
+
+  setTimeout(() => {
+    setShow(false)
+  }, state.duration * 1000 + 1000)
 
   const Tick = () => setTimeLeft(timeLeft - 1);
 
@@ -80,8 +86,13 @@ export const Testing = ({ setCurrentPage, state, setState }) => {
           </InfoSec> */}
 
           <InfoSec>
-
-            <VerifyText setCurrentPage={setCurrentPage} difficulty={state.Level} state={state} setState={setState}></VerifyText>
+            {
+              show ?
+                <VerifyText setCurrentPage={setCurrentPage} difficulty={state.Level} state={state} setState={setState}></VerifyText>
+              :
+                <></>
+            }
+            
 
           </InfoSec>
 
