@@ -14,8 +14,6 @@ import VerifyText from './VerifyText'
 
 export const Testing = ({ setCurrentPage, state }) => {
 
-  console.log(state.Level);
-
   const [ready, setReady] = useState(false);
 
   let duration = 20;
@@ -88,7 +86,7 @@ export const Testing = ({ setCurrentPage, state }) => {
           </InfoSec> */}
 
           <InfoSec>
-            
+
             <VerifyText difficulty={state.Level} setReady={setReady}></VerifyText>
 
           </InfoSec>

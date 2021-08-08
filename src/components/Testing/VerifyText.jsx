@@ -62,7 +62,7 @@ const VerifyText = ({setReady, difficulty=1}) => {
 
   return (
     <>
-      {/* <LiveText verbose={true} setReady={setReady} setMessage={setMessage}></LiveText> */}
+      <LiveText verbose={true} setReady={setReady} setMessage={setMessage}></LiveText>
 
       {
         outputWords()
