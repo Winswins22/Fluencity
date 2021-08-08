@@ -11,7 +11,7 @@ const symblEndpoint = `wss://api.symbl.ai/v1/realtime/insights/${uniqueMeetingId
 // setMessage: a state setter to upload messages to parent
 // setReady: a state setter to upload ready state to parent
 // verbose: Log every message (very spammy)
-const LiveText = (setMessage, setReady, verbose = false) => {
+const LiveText = (message, setReady, verbose = false) => {
 
   const [active, setActive] = useState(false)
 
@@ -35,7 +35,7 @@ const LiveText = (setMessage, setReady, verbose = false) => {
   }
 
   useEffect(() => {
-    setMessage(getMessage())
+    message.current = getMessage();
   }, [msg, accurateMsg])
 
   const ws = new WebSocket(symblEndpoint);
@@ -140,7 +140,7 @@ const LiveText = (setMessage, setReady, verbose = false) => {
         // Send audio stream to websocket.
         if (ws.readyState === WebSocket.OPEN) {
           ws.send(targetBuffer.buffer);
-          setReady(true)
+          // setReady(true);
         }
       };
     })

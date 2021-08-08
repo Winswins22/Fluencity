@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import LiveText from './LiveText'
 import GetText from './GetText'
@@ -7,7 +7,8 @@ import GetText from './GetText'
 const VerifyText = ({setReady, difficulty=1}) => {
 
   const [prevMessage, setPrevMessage] = useState("")
-  const [message, setMessage] = useState("")
+  // const [message, setMessage] = useState("");
+  const message = useRef("");
 
   const [items, setItems] = useState(GetText(difficulty))
 
@@ -62,7 +63,7 @@ const VerifyText = ({setReady, difficulty=1}) => {
 
   return (
     <>
-      {/* <LiveText verbose={true} setReady={setReady} setMessage={setMessage}></LiveText> */}
+      <LiveText verbose={true} setReady={setReady} message={message}></LiveText>
 
       {
         outputWords()

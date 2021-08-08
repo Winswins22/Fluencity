@@ -14,8 +14,6 @@ import VerifyText from './VerifyText'
 
 export const Testing = ({ setCurrentPage, state }) => {
 
-  console.log(state.Level);
-
   const [ready, setReady] = useState(false);
 
   let duration = 20;
