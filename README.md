@@ -1,4 +1,4 @@
-# voice-with-symblai
+# Fluencity
 
 [GitHub](https://github.com/Winswins22/voice-with-symblai)
 
