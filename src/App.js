@@ -1,5 +1,3 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-
 import { Background } from './components'
 import React, { useState, useEffect } from 'react'
 
