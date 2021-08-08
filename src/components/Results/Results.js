@@ -11,7 +11,7 @@ import {
 } from './Results.elements'
 
 
-const Results = ({ results }) => {
+export const Results = ({ results }) => {
   return (
     <Container>
       <Wrapper>

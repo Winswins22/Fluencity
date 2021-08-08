@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
+
 import NavImg from "../../images/NavBg.PNG"
 import LogoImg from "../../images/Logo.png"
 import BgImg1 from "../../images/BgImg1.png"
@@ -15,6 +17,7 @@ export const BackgroundAndNav = styled.div`
     margin: 0;
     height: 100vh;
     background-color: #e6f4e1ff;
+    overflow: hidden;
 `
 export const Nav = styled.div`
     padding-top: 20px;
@@ -39,7 +42,7 @@ export const Logo = styled.div`
     background-repeat: no-repeat;
 `
 
-export const NavLinks = styled.a`
+export const NavLinks = styled.button`
     color: white;
     font-size: 30px;
     background: 0;

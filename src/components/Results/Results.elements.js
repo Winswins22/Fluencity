@@ -4,15 +4,17 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
   position: absolute;
-  width: 100%;
+  left: 27%;
+  top: 0;
+  z-index: 1;
+  width: 65%;
   height: 100%;
 `
 
 export const Wrapper = styled.div`
   background: #ddd;
-  width: 60%;
+  width: 100%;
   height: 60%;
   padding: 20px;
   
