@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import GetText from './GetText'
 
 import Button from '@material-ui/core/Button';
 
@@ -7,8 +8,69 @@ const uniqueMeetingId = btoa("user@example.com");
 const symblEndpoint = `wss://api.symbl.ai/v1/realtime/insights/${uniqueMeetingId}?access_token=${accessToken}`;
 
 // verbose: Log every message (very spammy)
-const LiveText = (verbose = false) => {
+const LiveText = ({difficulty = 1, verbose = false}) => {
 
+  //VerifyText component
+  const [prevMessage, setPrevMessage] = useState("")
+  // const [message, setMessage] = useState("");
+  const message = useRef("");
+
+  const [items, setItems] = useState(GetText(difficulty))
+
+  const title = items.title
+
+  const wordsToDisplay = items.text.split(" ")
+  const wordsToSay = items.text.split(/[ ,]+/)
+
+  function extractNewWords(){
+    if (message === prevMessage){
+      return ""
+    }
+    else{
+      if (message.length < prevMessage.length){
+        return message.split(" ")
+      }
+      else if (message.length > prevMessage.length){
+        let msg = message
+        return msg.replace(prevMessage, "").split(" ")
+      }
+    }
+  }
+
+  function checkWords(){
+
+  }
+
+  function outputWords(){
+    return (
+      <div style={{marginTop:"20vh"}}>
+        {
+          wordsToDisplay.map((word) => {
+          return(
+            <>
+              
+              <h2 style={{display: "inline"}}> {word} </h2>
+              
+            </>
+          )
+          })
+        }
+      </div>
+    )
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+  // LiveText component
   const [active, setActive] = useState(false)
   const [ready, setReady] = useState(false)
 
@@ -188,7 +250,6 @@ const LiveText = (verbose = false) => {
 
   return(
   <>
-    <h1> You said .... </h1>
     <h2> {getMessage()} </h2>
 
     {
@@ -200,6 +261,10 @@ const LiveText = (verbose = false) => {
         <Button variant="contained" color="secondary" onClick={() => stop()}>
           Stop!
         </Button>
+    }
+
+    {
+      outputWords()
     }
     </>
   )
