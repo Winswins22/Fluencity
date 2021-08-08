@@ -12,7 +12,7 @@ import {
 } from './Testing.elements'
 import VerifyText from './VerifyText'
 
-const Testing = () => {
+export const Testing = () => {
 
   let duration = 10;
 
