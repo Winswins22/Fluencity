@@ -4,12 +4,13 @@ import LiveText from './LiveText'
 import GetText from './GetText'
 
 //  difficulty: 1-3
-const VerifyText = (difficulty=1) => {
+const VerifyText = ({difficulty=1}) => {
 
   const [prevMessage, setPrevMessage] = useState("")
   const [message, setMessage] = useState("")
   const [ready, setReady] = useState(false)
 
+  console.log("difficultyBefore", difficulty)
   const items = GetText(difficulty)
 
   const title = items.title
@@ -40,6 +41,23 @@ const VerifyText = (difficulty=1) => {
 
   function checkWords(){
     let newWords = extractNewWords()
+
+    // check for next 2 words
+    for (let i = 0; i < newWords.length; i ++){
+      if (newWords[i].toLowerCase === wordsToSay[i + currentSentenceIndex].toLowerCase){
+        isCorrectlySaid.push(true)
+        currentSentenceIndex += 1
+      }
+      else if (newWords[i].toLowerCase === wordsToSay[i + currentSentenceIndex + 1].toLowerCase){
+        isCorrectlySaid.push(false)
+        isCorrectlySaid.push(true)
+        currentSentenceIndex += 2
+      }
+      else{
+        isCorrectlySaid.push(false)
+        currentSentenceIndex += 1
+      }
+    }
   }
 
   function outputWords(){
@@ -58,10 +76,22 @@ const VerifyText = (difficulty=1) => {
     return(
       <>
         {
-          coloredWords.map((item) => {
-            return <>{item}</>
-          })
+          ready ?
+            <h1> {title} </h1>
+          :
+            <></>
         }
+        {
+          ready ?
+            
+            coloredWords.map((item) => {
+              return <>{item}</>
+            })
+          :
+            <></>
+        }
+
+
       </>
     )
   }
@@ -75,7 +105,7 @@ const VerifyText = (difficulty=1) => {
 
   return (
     <>
-      <LiveText setReady={setReady} setMessage={setMessage}></LiveText>
+      <LiveText verbose={true} setReady={setReady} setMessage={setMessage}></LiveText>
 
       {
         outputWords()

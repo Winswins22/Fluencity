@@ -16,7 +16,7 @@ import { BgPic5 } from './Background.elements'
 import { BgPic6 } from './Background.elements'
 
 import { Home } from '../Home/Home'
-import { Testing } from '../Testing/Testing'
+import Testing from '../Testing/Testing'
 import { Results } from '../Results/Results'
 
 

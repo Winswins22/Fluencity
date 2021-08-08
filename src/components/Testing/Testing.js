@@ -10,6 +10,7 @@ import {
   InfoSec,
   Line
 } from './Testing.elements'
+import VerifyText from './VerifyText'
 
 const Testing = () => {
 
@@ -58,7 +59,7 @@ const Testing = () => {
 
         </MiniContainer>
         <InfoContainer>
-          <InfoSec>
+          {/* <InfoSec>
             Text text text text text text text text text text …..
           </InfoSec>
 
@@ -80,6 +81,12 @@ const Testing = () => {
 
           <InfoSec style={{width: "102%"}}>
             <Line />
+          </InfoSec> */}
+
+          <InfoSec>
+
+            <VerifyText></VerifyText>
+
           </InfoSec>
 
         </InfoContainer>
