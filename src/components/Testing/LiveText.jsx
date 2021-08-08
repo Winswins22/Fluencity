@@ -12,7 +12,7 @@ const uniqueMeetingId = btoa("user@example.com");
 const symblEndpoint = `wss://api.symbl.ai/v1/realtime/insights/${uniqueMeetingId}?access_token=${accessToken}`;
 
 // verbose: Log every message (very spammy)
-const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
+const LiveText = ({setCurrentPage, state, setState, difficulty = 1, verbose = true}) => {
 
   const ogState = state;
 
