@@ -318,20 +318,15 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
 
   // createStream()
 
+  const [started, setStart] = useState(false)
+
+  if (!started){
+    setStart(true)
+    start()
+  }
+
   return(
   <>
-    <h2> {getMessage()} </h2>
-
-    {
-      !active ?
-        <Button variant="contained" color="primary" onClick={() => start()}>
-          Start!
-        </Button>
-      :
-        <Button variant="contained" color="secondary" onClick={() => stop()}>
-          Stop!
-        </Button>
-    }
 
     {
       outputWords()
