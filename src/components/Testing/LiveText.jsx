@@ -13,15 +13,13 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
   const ogState = state;
 
   //VerifyText component
-  const [prevMessage, setPrevMessage] = useState("")
-  const [message, setMessage] = useState("");
   //const message = useRef("");
 
   const [items, setItems] = useState(GetText(difficulty))
   const readyRef = useRef(false)
   const title = items.title
 
-  const wordsToDisplay = items.text.split(" ")
+  const wordsToDisplay = items.text
   const wordsToSay = items.text.split(/[ ,]+/)
 
   const currentIndexRef = useRef(0);
@@ -50,46 +48,37 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
     })
   }
 
-  // setTimeout(() => {
-  //   alert("via timeout")
-  //   finishState()
-  // }, state.duration * 1000)
+  setTimeout(() => {
+    finishState()
+  }, state.duration * 1000)
 
-  function extractNewWords(){
-    console.log("extractNewWords", message, prevMessage)
-    if (message === prevMessage){
-      console.log("extractNewWords nothing")
-      return ""
-    }
-    else{
-      if (message.length < prevMessage.length){
-        console.log("extractNewWords", message.split(" "))
-        return message.split(" ")
-      }
-      else if (message.length > prevMessage.length){
-        let msg = message
-        console.log("extractNewWords", msg.replace(prevMessage, "").split(" "))
-        return msg.replace(prevMessage, "").split(" ")
-      }
-    }
-  }
+  // function extractNewWords(){
+  //   console.log("extractNewWords", message, prevMessage)
+  //   if (message === prevMessage){
+  //     console.log("extractNewWords nothing")
+  //     return ""
+  //   }
+  //   else{
+  //     if (message.length < prevMessage.length){
+  //       console.log("extractNewWords", message.split(" "))
+  //       return message.split(" ")
+  //     }
+  //     else if (message.length > prevMessage.length){
+  //       let msg = message
+  //       console.log("extractNewWords", msg.replace(prevMessage, "").split(" "))
+  //       return msg.replace(prevMessage, "").split(" ")
+  //     }
+  //   }
+  // }
 
   
 
   function outputWords(){
     return (
       <div style={{marginTop:"20vh"}}>
-        {
-          wordsToDisplay.map((word) => {
-          return(
-            <>
-              
-              <h2 style={{display: "inline"}}> {word} </h2>
-              
-            </>
-          )
-          })
-        }
+
+        {wordsToDisplay}
+
       </div>
     )
   }
@@ -109,7 +98,7 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
   const [active, setActive] = useState(false)
 
   const [msg, setMsg] = useState()
-  const [accurateMsg, setAccMsg] = useState()
+  const accurateMsg = "";
 
   const [bestMsg, setBestMsg] = useState("")
 
@@ -173,29 +162,29 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
   ws.onmessage = (event) => {
     // You can find the conversationId in event.message.data.conversationId;
     const data = JSON.parse(event.data);
-    if (data.type === 'message' && data.message.hasOwnProperty('data')) {
-      console.log('conversationId', data.message.data.conversationId);
-    }
-    if (data.type === 'message_response') {
-      for (let message of data.messages) {
-        if (verbose) {
-          console.log('Transcript (more accurate): ', message.payload.content);
-        }
-        setAccMsg(message.payload.content)
-      }
-    }
-    if (data.type === 'topic_response') {
-      for (let topic of data.topics) {
-        if (verbose) {
-          console.log('Topic detected: ', topic.phrases)
-        }
-      }
-    }
-    if (data.type === 'insight_response') {
-      for (let insight of data.insights) {
-        console.log('Insight detected: ', insight.payload.content);
-      }
-    }
+    // if (data.type === 'message' && data.message.hasOwnProperty('data')) {
+    //   console.log('conversationId', data.message.data.conversationId);
+    // }
+    // if (data.type === 'message_response') {
+    //   for (let message of data.messages) {
+    //     if (verbose) {
+    //       console.log('Transcript (more accurate): ', message.payload.content);
+    //     }
+    //     setAccMsg(message.payload.content)
+    //   }
+    // }
+    // if (data.type === 'topic_response') {
+    //   for (let topic of data.topics) {
+    //     if (verbose) {
+    //       console.log('Topic detected: ', topic.phrases)
+    //     }
+    //   }
+    // }
+    // if (data.type === 'insight_response') {
+    //   for (let insight of data.insights) {
+    //     console.log('Insight detected: ', insight.payload.content);
+    //   }
+    // }
     if (data.type === 'message' && data.message.hasOwnProperty('punctuated')) {
       if (verbose) {
         console.log('Live transcript (less accurate): ', data.message.punctuated.transcript)
@@ -286,7 +275,7 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
       ws.close()
       setActive(false)
       readyRef.current = false;
-      setAccMsg(null)
+      //setAccMsg(null)
       setMsg(null)
     }
   }
@@ -314,8 +303,7 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
   // createStream()
 
   useEffect(() => {
-    setPrevMessage(message)
-    setMessage(getMessage())
+    setBestMsg(getMessage())
   }, [msg, accurateMsg])
 
   return(
