@@ -10,9 +10,9 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <Home />
+      {/* <Home /> */}
       {/* <LiveText /> */}
-      {/* <Testing /> */}
+      <Testing />
       {/* <Results /> */}
     </>
   );
