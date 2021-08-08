@@ -11,7 +11,7 @@ import {
   Line
 } from './Testing.elements'
 
-const Testing = () => {
+export const Testing = () => {
 
   let duration = 10;
 
