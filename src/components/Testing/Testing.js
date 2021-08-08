@@ -14,6 +14,10 @@ import VerifyText from './VerifyText'
 
 export const Testing = ({ setCurrentPage, state }) => {
 
+  const [ready, setReady] = useState(false)
+
+  let duration = 20;
+
   const [timeLeft, setTimeLeft] = useState(state.duration); // in seconds
 
   const FormatTime = (time) => {
@@ -83,7 +87,7 @@ export const Testing = ({ setCurrentPage, state }) => {
 
           <InfoSec>
 
-            <VerifyText></VerifyText>
+            <VerifyText setReady={setReady}></VerifyText>
 
           </InfoSec>
 
