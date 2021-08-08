@@ -4,7 +4,7 @@ import LiveText from './LiveText'
 import GetText from './GetText'
 
 //  difficulty: 1-3
-const VerifyText = ({state, setState, difficulty=1}) => {
+const VerifyText = ({setCurrentPage, state, setState, difficulty=1}) => {
 
 
 
@@ -17,7 +17,7 @@ const VerifyText = ({state, setState, difficulty=1}) => {
 
   return (
     <>
-      <LiveText difficulty={difficulty} state={state} setState={setState}></LiveText>
+      <LiveText setCurrentPage={setCurrentPage} difficulty={difficulty} state={state} setState={setState}></LiveText>
     </>
   )
 }

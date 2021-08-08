@@ -12,12 +12,13 @@ const uniqueMeetingId = btoa("user@example.com");
 const symblEndpoint = `wss://api.symbl.ai/v1/realtime/insights/${uniqueMeetingId}?access_token=${accessToken}`;
 
 // verbose: Log every message (very spammy)
-const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
+const LiveText = ({setCurrentPage, state, setState, difficulty = 1, verbose = true}) => {
 
   const ogState = state;
 
   //VerifyText component
   //const message = useRef("");
+  const [finish, setFinish] = useState(false)
 
   // const [items, setItems] = useState(GetText(difficulty))
   const itemsRef = useRef(GetText(difficulty))
@@ -55,10 +56,18 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
         result: c
       }
     })
+
+    setCurrentPage("Results");
   }
 
   setTimeout(() => {
-    finishState()
+    
+    if (!finish){
+      finishState()
+      setFinish(true)
+    }
+    
+    
   }, state.duration * 1000)
 
   // function extractNewWords(){
@@ -143,7 +152,11 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
     try{
       if (currentIndexRef.current === wordsToSay.length){
         //alert("via length")
-        finishState()
+        if (!finish){
+          finishState()
+          setFinish(true)
+        }
+        
       }
   
       let arry = bestMsg.split(" ");
