@@ -31,6 +31,7 @@ function App() {
 
   useEffect(() => {
     setCurrentPage("Home");
+    currentPageRef.current = "Home";
   },[])
   return (
     <>
