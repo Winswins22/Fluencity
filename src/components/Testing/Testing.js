@@ -57,9 +57,6 @@ export const Testing = ({ setCurrentPage, state }) => {
 
         </MiniContainer>
         <InfoContainer>
-<<<<<<< HEAD
-          <InfoSec>
-=======
           {/* <InfoSec>
             Text text text text text text text text text text …..
           </InfoSec>
@@ -88,7 +85,6 @@ export const Testing = ({ setCurrentPage, state }) => {
 
             <VerifyText></VerifyText>
 
->>>>>>> 0361b67d26cb5963fc4c78f0720fddf60b4bf937
           </InfoSec>
 
         </InfoContainer>
