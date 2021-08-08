@@ -3,17 +3,19 @@ import GetText from './GetText'
 
 import Button from '@material-ui/core/Button';
 
-const accessToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFVUTRNemhDUVVWQk1rTkJNemszUTBNMlFVVTRRekkyUmpWQ056VTJRelUxUTBVeE5EZzFNUSJ9.eyJodHRwczovL3BsYXRmb3JtLnN5bWJsLmFpL3VzZXJJZCI6IjY2Njk5MDA5ODc3NjA2NDAiLCJpc3MiOiJodHRwczovL2RpcmVjdC1wbGF0Zm9ybS5hdXRoMC5jb20vIiwic3ViIjoia0k2dUdjWkFEajhxRHU1VjFwdmhod3pKVU9Jb1JmWnhAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vcGxhdGZvcm0ucmFtbWVyLmFpIiwiaWF0IjoxNjI4Mzk2MTYyLCJleHAiOjE2Mjg0ODI1NjIsImF6cCI6ImtJNnVHY1pBRGo4cUR1NVYxcHZoaHd6SlVPSW9SZlp4IiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.sT9qDFXkm-E9ERMLjFl97Q_L62wd6fFayidfOYLsaU9v5pwhQwpPSvzEfeU61Mk9-BtS5VNuX0WGKFFkvZDQe7XIwqkK-9lCHvsl3T5HiS9I-JrXQqsM_YtUfoQBOSLBvC1v5U-23PIbjvM0voPV_PQzGMLHw8JtkNtAighBMe3kPhfBphDGZaPUcKj31SCH_H7S_8pG241s3K5spMws0teEHp7Hsw833dcrty48ZIIXEMnOKDG_qxicU_px3N4hyCb_vZWG0VauSzANnQAvca46cOo4aodLga1iMrpt3z3EehATJq35m9pSAUBq7x9OSfU_xyRfF2M8AiP2tlSbuA"
+const accessToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFVUTRNemhDUVVWQk1rTkJNemszUTBNMlFVVTRRekkyUmpWQ056VTJRelUxUTBVeE5EZzFNUSJ9.eyJodHRwczovL3BsYXRmb3JtLnN5bWJsLmFpL3VzZXJJZCI6IjYzOTU3ODA5NDEyMTc3OTIiLCJpc3MiOiJodHRwczovL2RpcmVjdC1wbGF0Zm9ybS5hdXRoMC5jb20vIiwic3ViIjoiZFZQR2Z4SXlVSW53WG9kbnJZRzgyNTE3ZUFlTzNaRFNAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vcGxhdGZvcm0ucmFtbWVyLmFpIiwiaWF0IjoxNjI4NDA4ODM4LCJleHAiOjE2Mjg0OTUyMzgsImF6cCI6ImRWUEdmeEl5VUlud1hvZG5yWUc4MjUxN2VBZU8zWkRTIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.ewpZNbUUSDa66nt9Pdl5OVzwZLZ9039wIsJ7VsMneMILHHqsBUNipYOma836FNFAVQLGr1UgvPtAWhXpny5KW_SDPYJ7v1L6BTjYdj0QgXSK_dHFAl2AB3YfA8lkm5E4AV8moCueXixv4tGmxjJnV7xU7q_dx0Id-Do455-tI_Zu9DY8HGfbLFGNaYuSeFV7fvCH6ycj195C1FyXC-iDCh0aECORaQEpseNGmF2TNlDRZ6u2o6QsW7LfxbhtHby5dRs-aMG2uu3vz7Ppb24hCdCHAD2V7l-cI0B3PqvHxPu9mje70WYtw6C9XCSO9NGhoCrp39KNgEgS6D3UZg0QgQ"
 const uniqueMeetingId = btoa("user@example.com");
 const symblEndpoint = `wss://api.symbl.ai/v1/realtime/insights/${uniqueMeetingId}?access_token=${accessToken}`;
 
 // verbose: Log every message (very spammy)
-const LiveText = ({difficulty = 1, verbose = false}) => {
+const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
+
+  const ogState = state;
 
   //VerifyText component
   const [prevMessage, setPrevMessage] = useState("")
-  // const [message, setMessage] = useState("");
-  const message = useRef("");
+  const [message, setMessage] = useState("");
+  //const message = useRef("");
 
   const [items, setItems] = useState(GetText(difficulty))
   const readyRef = useRef(false)
@@ -22,24 +24,57 @@ const LiveText = ({difficulty = 1, verbose = false}) => {
   const wordsToDisplay = items.text.split(" ")
   const wordsToSay = items.text.split(/[ ,]+/)
 
+  const [currentIndex, setIndex] = useState(0)
+  const [correct, setCorrect] = useState(0)
+  const [wrong, setWrong] = useState(0)
+
+  function finishState(){
+    setState({
+      duration: 0,
+      Level: ogState.Level,
+      results: {
+        wpm: Math.round((correct+wrong)/ogState.duration),
+        acc: Math.round(correct/(correct+wrong)).toString(),
+        result: Math.round((correct+wrong)/ogState.duration) * Math.round(correct/(correct+wrong)).toString()
+      }
+    })
+
+    console.warn("finishState", {
+      duration: 0,
+      Level: ogState.Level,
+      results: {
+        wpm: Math.round((correct+wrong)/ogState.duration),
+        acc: Math.round(correct/(correct+wrong)).toString(),
+        result: Math.round((correct+wrong)/ogState.duration) * Math.round(correct/(correct+wrong)).toString()
+      }
+    })
+  }
+
+  setTimeout(() => {
+    alert("via timeout")
+    finishState()
+  }, state.duration * 1000)
+
   function extractNewWords(){
+    console.log("extractNewWords", message, prevMessage)
     if (message === prevMessage){
+      console.log("extractNewWords nothing")
       return ""
     }
     else{
       if (message.length < prevMessage.length){
+        console.log("extractNewWords", message.split(" "))
         return message.split(" ")
       }
       else if (message.length > prevMessage.length){
         let msg = message
+        console.log("extractNewWords", msg.replace(prevMessage, "").split(" "))
         return msg.replace(prevMessage, "").split(" ")
       }
     }
   }
 
-  function checkWords(){
-
-  }
+  
 
   function outputWords(){
     return (
@@ -76,16 +111,21 @@ const LiveText = ({difficulty = 1, verbose = false}) => {
   const [msg, setMsg] = useState()
   const [accurateMsg, setAccMsg] = useState()
 
+  const [bestMsg, setBestMsg] = useState("")
+
   function getMessage() {
     if (msg && accurateMsg) {
       if (accurateMsg.length === msg.length) {
+        setBestMsg(accurateMsg)
         return accurateMsg
       }
       else {
+        setBestMsg(msg)
         return msg
       }
     }
     else if (msg) {
+      setBestMsg(msg)
       return msg
     }
 
@@ -100,6 +140,32 @@ const LiveText = ({difficulty = 1, verbose = false}) => {
     }
     return ""
   }
+
+  function checkWords(){
+
+    if (currentIndex === wordsToSay.length){
+      alert("via length")
+      finishState()
+    }
+
+    let arry = bestMsg.split(" ");
+
+    for (let i = 0; i < arry.length; i ++){
+      if (arry[i].toLowerCase === wordsToSay[currentIndex].toLowerCase){
+        setCorrect(correct + 1)
+        setIndex(currentIndex + 1)
+        return
+      }
+    }
+    setWrong(wrong + 1)
+    setIndex(currentIndex + 1)
+    return
+    
+  }
+
+  useEffect(() => {
+    checkWords()
+  }, [bestMsg])
 
   const ws = new WebSocket(symblEndpoint);
 
@@ -177,8 +243,6 @@ const LiveText = ({difficulty = 1, verbose = false}) => {
 
   function start() {
 
-    console.warn("ws before", ws.readyState, ws)
-
     console.log("Starting Websocket")
     setActive(true)
 
@@ -206,7 +270,8 @@ const LiveText = ({difficulty = 1, verbose = false}) => {
           if (ws.readyState === WebSocket.OPEN) {
             ws.send(targetBuffer.buffer);
             readyRef.current = true;
-            console.warn("ws after", ws.readyState, ws)
+            // alert("Ready")
+            console.info("Ready!")
           }
         };
       })
@@ -247,6 +312,11 @@ const LiveText = ({difficulty = 1, verbose = false}) => {
   //   .catch(err => console.log("err;", err))
 
   // createStream()
+
+  useEffect(() => {
+    setPrevMessage(message)
+    setMessage(getMessage())
+  }, [msg, accurateMsg])
 
   return(
   <>

@@ -12,10 +12,10 @@ import {
 } from './Testing.elements'
 import VerifyText from './VerifyText'
 
-export const Testing = ({ setCurrentPage, state }) => {
+export const Testing = ({ setCurrentPage, state, setState }) => {
 
   // const [ready, setReady] = useState(false);
-  const readyRef = useRef(0);
+  //const readyRef = useRef(false);
 
   let duration = 20;
 
@@ -88,7 +88,7 @@ export const Testing = ({ setCurrentPage, state }) => {
 
           <InfoSec>
 
-            <VerifyText difficulty={state.Level} readyRef={readyRef}></VerifyText>
+            <VerifyText difficulty={state.Level} state={state} setState={setState}></VerifyText>
 
           </InfoSec>
 
