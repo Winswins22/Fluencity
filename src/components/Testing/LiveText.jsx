@@ -1,3 +1,5 @@
+// This component creates a websocket to symbl.ai.
+
 import React, { useState, useEffect } from 'react'
 
 import Button from '@material-ui/core/Button';
@@ -6,11 +8,12 @@ const accessToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFVUTRNemhDUVV
 const uniqueMeetingId = btoa("user@example.com");
 const symblEndpoint = `wss://api.symbl.ai/v1/realtime/insights/${uniqueMeetingId}?access_token=${accessToken}`;
 
+// setMessage: a state setter to upload messages to parent
+// setReady: a state setter to upload ready state to parent
 // verbose: Log every message (very spammy)
-const LiveText = (verbose = false) => {
+const LiveText = (setMessage, setReady, verbose = false) => {
 
   const [active, setActive] = useState(false)
-  const [ready, setReady] = useState(false)
 
   const [msg, setMsg] = useState()
   const [accurateMsg, setAccMsg] = useState()
@@ -28,17 +31,12 @@ const LiveText = (verbose = false) => {
       return msg
     }
     
-    if (active && ready){
-      return "(Say something!)"
-    }
-    else if (active  && !ready){
-      return "(Initializing)"
-    }
-    else if (!active){
-      return "(Enable the Websocket)"
-    }
     return ""
   }
+
+  useEffect(() => {
+    setMessage(getMessage())
+  }, [msg, accurateMsg])
 
   const ws = new WebSocket(symblEndpoint);
 
@@ -116,8 +114,6 @@ const LiveText = (verbose = false) => {
 
   function start(){
 
-    console.warn("ws before", ws.readyState, ws)
-
     console.log("Starting Websocket")
     setActive(true)
 
@@ -145,7 +141,6 @@ const LiveText = (verbose = false) => {
         if (ws.readyState === WebSocket.OPEN) {
           ws.send(targetBuffer.buffer);
           setReady(true)
-          console.warn("ws after", ws.readyState, ws)
         }
       };
     })
@@ -163,48 +158,33 @@ const LiveText = (verbose = false) => {
       setAccMsg(null)
       setMsg(null)
     }
-    console.warn("ws closed?", ws.readyState, ws)
   }
 
-  // async function useStream() {
-  //   let stream = null;
-  
-  //   try {
-  //     stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-  //     /* use the stream */
-  //     initStream()
-  //   } catch(err) {
-  //     /* handle the error */
-  //     console.log("getMedia error:", err)
+  // return(
+  // <>
+    
+  //   <h1> You said .... </h1>
+  //   <h2> {getMessage()} </h2>
+
+  //   {
+  //     !active ?
+  //       <Button variant="contained" color="primary" onClick={() => start()}>
+  //         Start!
+  //       </Button>
+  //     :
+  //       <Button variant="contained" color="secondary" onClick={() => stop()}>
+  //         Stop!
+  //       </Button>
   //   }
-  // }
-
-  // useStream()
-
-
-  // createStreamAsync()
-  //   .then(initStream())
-  //   .catch(err => console.log("err;", err))
-
-  // createStream()
+  //   </>
+  // )
+  
+  start()
 
   return(
-  <>
-    <h1> You said .... </h1>
-    <h2> {getMessage()} </h2>
-
-    {
-      !active ?
-        <Button variant="contained" color="primary" onClick={() => start()}>
-          Start!
-        </Button>
-      :
-        <Button variant="contained" color="secondary" onClick={() => stop()}>
-          Stop!
-        </Button>
-    }
-    </>
+    <></>
   )
+
 }
 
 export default LiveText

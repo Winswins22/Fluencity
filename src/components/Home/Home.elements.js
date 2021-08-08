@@ -1,19 +1,21 @@
 import styled from 'styled-components'
-import img from '../../imgs/Homebg.jpg';
+import img from '../../images/Homebg.jpg';
 
 
 export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
   position: absolute;
-  width: 100%;
+  left: 27%;
+  top: 0;
+  z-index: 1;
+  width: 65%;
   height: 100%;
   `
 
 export const Wrapper = styled.div`
-  width: 60%;
+  width: 100%;
   height: 60%;
   padding: 50px;
 
@@ -21,13 +23,14 @@ export const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
 
-  box-shadow: 10px 10px 25px rgba(56, 118, 29, 0.8);
+  box-shadow: 5px 5px 25px rgba(56, 118, 29, 0.8);
 
 
   background-image: url(${img});
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 20px;
+
 `
 
 export const Header = styled.p`

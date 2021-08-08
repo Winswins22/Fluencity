@@ -41,13 +41,12 @@ const Testing = () => {
   });
 
   hanleTimeUp();
-  console.log(FormatTime(timeLeft));
   return (
     <Container>
       <Wrapper>
         <MiniContainer>
           <MiniWrapper>
-            Time
+            {FormatTime(timeLeft)}
           </MiniWrapper>
 
           <MiniWrapper style={{ cursor: "pointer" }}>
