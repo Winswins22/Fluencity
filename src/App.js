@@ -1,4 +1,4 @@
-import LiveText from './LiveText'
+import LiveText from './components/Testing/LiveText'
 
 import { Home } from './components'
 import { Testing } from './components'

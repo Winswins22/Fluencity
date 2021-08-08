@@ -11,6 +11,10 @@ import {
   Line
 } from './Testing.elements'
 
+import {
+  VerifyText
+} from './VerifyText'
+
 const Testing = () => {
   return (
     <Container>

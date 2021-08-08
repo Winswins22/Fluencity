@@ -16,6 +16,7 @@ import {
 
 
 const Home = () => {
+    
 
   // test duration in seconds
   const [state, setState] = useState({
@@ -97,9 +98,11 @@ const Home = () => {
             Start
           </StartButton>
         </InfoContainer>
-        
+
       </Wrapper>
+
     </Container>
+
   )
 }
 
