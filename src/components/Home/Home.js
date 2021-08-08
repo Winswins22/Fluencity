@@ -15,7 +15,7 @@ import {
 */
 
 
-const Home = () => {
+export const Home = () => {
 
   // test duration in seconds
   const [state, setState] = useState({

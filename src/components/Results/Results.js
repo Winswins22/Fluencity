@@ -32,7 +32,7 @@ import { ImCross } from 'react-icons/im'
 import { FaEquals } from 'react-icons/fa'
 
 
-const Results = ({ results }) => {
+export const Results = ({ results }) => {
 
   const LeaderboardScore = ({ rank, score }) => {
     return (
