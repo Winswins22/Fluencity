@@ -32,7 +32,7 @@ import { ImCross } from 'react-icons/im'
 import { FaEquals } from 'react-icons/fa'
 
 
-export const Results = ({ HandleNavigation }) => {
+export const Results = ({setCurrentPage, state}) => {
 
   const LeaderboardScore = ({ rank, score }) => {
     return (
@@ -92,7 +92,7 @@ export const Results = ({ HandleNavigation }) => {
     return (
       <StatusContainer>
         <StatusWrapper>
-          <ScoreText>31</ScoreText>
+          <ScoreText>{state.results.wpm}</ScoreText>
           <ScoreLabel>wpm</ScoreLabel>
         </StatusWrapper>
 
@@ -101,7 +101,7 @@ export const Results = ({ HandleNavigation }) => {
         </Icon>
 
         <StatusWrapper>
-          <ScoreText>100%</ScoreText>
+          <ScoreText>{state.results.acc}</ScoreText>
           <ScoreLabel>accuracy</ScoreLabel>
         </StatusWrapper>
 
@@ -110,7 +110,7 @@ export const Results = ({ HandleNavigation }) => {
         </Icon>
 
         <StatusWrapper>
-          <ScoreText>31</ScoreText>
+          <ScoreText>{state.results.result}</ScoreText>
           <ScoreLabel>result</ScoreLabel>
         </StatusWrapper>
 
@@ -131,7 +131,7 @@ export const Results = ({ HandleNavigation }) => {
           <YourLeaderboard />
         </LeftColumn>
         <RightColumn>
-          <Button onClick={HandleNavigation}>
+          <Button onClick={setCurrentPage("Home")}>
             Retake test
           </Button>
           <Leaderboard />
