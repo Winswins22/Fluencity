@@ -4,11 +4,10 @@ import LiveText from './LiveText'
 import GetText from './GetText'
 
 //  difficulty: 1-3
-const VerifyText = ({setReady, difficulty=1}) => {
+const VerifyText = ({readyRef, difficulty=1}) => {
 
   const [prevMessage, setPrevMessage] = useState("")
-  // const [message, setMessage] = useState("");
-  const message = useRef("");
+  const messageRef = useRef("");
 
   const [items, setItems] = useState(GetText(difficulty))
 
@@ -18,15 +17,15 @@ const VerifyText = ({setReady, difficulty=1}) => {
   const wordsToSay = items.text.split(/[ ,]+/)
 
   function extractNewWords(){
-    if (message === prevMessage){
+    if (messageRef.current === prevMessage){
       return ""
     }
     else{
-      if (message.length < prevMessage.length){
-        return message.split(" ")
+      if (messageRef.current.length < prevMessage.length){
+        return messageRef.current.split(" ")
       }
-      else if (message.length > prevMessage.length){
-        let msg = message
+      else if (messageRef.current.length > prevMessage.length){
+        let msg = messageRef.current
         return msg.replace(prevMessage, "").split(" ")
       }
     }
@@ -58,12 +57,12 @@ const VerifyText = ({setReady, difficulty=1}) => {
   useEffect(() =>{
     checkWords()
 
-    setPrevMessage(message)
-  }, [message])
+    setPrevMessage(messageRef.current)
+  }, [messageRef.current])
 
   return (
     <>
-      <LiveText verbose={true} setReady={setReady} message={message}></LiveText>
+      <LiveText verbose={true} readyRef={readyRef} messageRef={messageRef}></LiveText>
 
       {
         outputWords()

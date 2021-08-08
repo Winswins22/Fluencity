@@ -7,34 +7,33 @@ const uniqueMeetingId = btoa("user@example.com");
 const symblEndpoint = `wss://api.symbl.ai/v1/realtime/insights/${uniqueMeetingId}?access_token=${accessToken}`;
 
 // verbose: Log every message (very spammy)
-const LiveText = (verbose = false) => {
+const LiveText = ({ readyRef, messageRef, verbose = false }) => {
 
   const [active, setActive] = useState(false)
-  const [ready, setReady] = useState(false)
 
   const [msg, setMsg] = useState()
   const [accurateMsg, setAccMsg] = useState()
 
-  function getMessage(){
-    if (msg && accurateMsg){
-      if (accurateMsg.length === msg.length){
+  function getMessage() {
+    if (msg && accurateMsg) {
+      if (accurateMsg.length === msg.length) {
         return accurateMsg
       }
-      else{
+      else {
         return msg
       }
     }
-    else if (msg){
+    else if (msg) {
       return msg
     }
-    
-    if (active && ready){
+
+    if (active && readyRef.current) {
       return "(Say something!)"
     }
-    else if (active  && !ready){
+    else if (active && !readyRef.current) {
       return "(Initializing)"
     }
-    else if (!active){
+    else if (!active) {
       return "(Enable the Websocket)"
     }
     return ""
@@ -51,7 +50,7 @@ const LiveText = (verbose = false) => {
     }
     if (data.type === 'message_response') {
       for (let message of data.messages) {
-        if (verbose){
+        if (verbose) {
           console.log('Transcript (more accurate): ', message.payload.content);
         }
         setAccMsg(message.payload.content)
@@ -59,7 +58,7 @@ const LiveText = (verbose = false) => {
     }
     if (data.type === 'topic_response') {
       for (let topic of data.topics) {
-        if (verbose){
+        if (verbose) {
           console.log('Topic detected: ', topic.phrases)
         }
       }
@@ -70,7 +69,7 @@ const LiveText = (verbose = false) => {
       }
     }
     if (data.type === 'message' && data.message.hasOwnProperty('punctuated')) {
-      if (verbose){
+      if (verbose) {
         console.log('Live transcript (less accurate): ', data.message.punctuated.transcript)
       }
       setMsg(data.message.punctuated.transcript)
@@ -79,7 +78,7 @@ const LiveText = (verbose = false) => {
   };
 
   // Fired when the WebSocket closes unexpectedly due to an error or lost connetion
-  ws.onerror  = (err) => {
+  ws.onerror = (err) => {
     console.error(err);
   };
 
@@ -109,12 +108,12 @@ const LiveText = (verbose = false) => {
     }));
   };
 
-  window.onbeforeunload = function() {
-    ws.onclose = function () {}; // disable onclose handler first
+  window.onbeforeunload = function () {
+    ws.onclose = function () { }; // disable onclose handler first
     ws.close();
   };
 
-  function start(){
+  function start() {
 
     console.warn("ws before", ws.readyState, ws)
 
@@ -122,44 +121,44 @@ const LiveText = (verbose = false) => {
     setActive(true)
 
     navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-    .then(function(stream){
-      // stream = navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-      console.log("Stream is", stream)
-      
-      const AudioContext = window.AudioContext;
-      const context = new AudioContext();
-      const source = context.createMediaStreamSource(stream);
-      const processor = context.createScriptProcessor(1024, 1, 1);
-      const gainNode = context.createGain();
-      source.connect(gainNode);
-      gainNode.connect(processor);
-      processor.connect(context.destination);
-      processor.onaudioprocess = (e) => {
-        // convert to 16-bit payload
-        const inputData = e.inputBuffer.getChannelData(0) || new Float32Array(this.bufferSize);
-        const targetBuffer = new Int16Array(inputData.length);
-        for (let index = inputData.length; index > 0; index--) {
+      .then(function (stream) {
+        // stream = navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+        console.log("Stream is", stream)
+
+        const AudioContext = window.AudioContext;
+        const context = new AudioContext();
+        const source = context.createMediaStreamSource(stream);
+        const processor = context.createScriptProcessor(1024, 1, 1);
+        const gainNode = context.createGain();
+        source.connect(gainNode);
+        gainNode.connect(processor);
+        processor.connect(context.destination);
+        processor.onaudioprocess = (e) => {
+          // convert to 16-bit payload
+          const inputData = e.inputBuffer.getChannelData(0) || new Float32Array(this.bufferSize);
+          const targetBuffer = new Int16Array(inputData.length);
+          for (let index = inputData.length; index > 0; index--) {
             targetBuffer[index] = 32767 * Math.min(1, inputData[index]);
-        }
-        // Send audio stream to websocket.
-        if (ws.readyState === WebSocket.OPEN) {
-          ws.send(targetBuffer.buffer);
-          setReady(true)
-          console.warn("ws after", ws.readyState, ws)
-        }
-      };
-    })
-    .catch(function(err) {
-      console.log("err", err)
-    });
+          }
+          // Send audio stream to websocket.
+          if (ws.readyState === WebSocket.OPEN) {
+            ws.send(targetBuffer.buffer);
+            readyRef.current = true;
+            console.warn("ws after", ws.readyState, ws)
+          }
+        };
+      })
+      .catch(function (err) {
+        console.log("err", err)
+      });
   }
 
-  function stop(){
-    if (ws){
+  function stop() {
+    if (ws) {
       console.log("Closing Websocket")
       ws.close()
       setActive(false)
-      setReady(false)
+      readyRef.current = false;
       setAccMsg(null)
       setMsg(null)
     }
@@ -168,7 +167,7 @@ const LiveText = (verbose = false) => {
 
   // async function useStream() {
   //   let stream = null;
-  
+
   //   try {
   //     stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
   //     /* use the stream */
@@ -188,21 +187,21 @@ const LiveText = (verbose = false) => {
 
   // createStream()
 
-  return(
-  <>
-    <h1> You said .... </h1>
-    <h2> {getMessage()} </h2>
+  return (
+    <>
+      <h1> You said .... </h1>
+      <h2> {getMessage()} </h2>
 
-    {
-      !active ?
-        <Button variant="contained" color="primary" onClick={() => start()}>
-          Start!
-        </Button>
-      :
-        <Button variant="contained" color="secondary" onClick={() => stop()}>
-          Stop!
-        </Button>
-    }
+      {
+        !active ?
+          <Button variant="contained" color="primary" onClick={() => start()}>
+            Start!
+          </Button>
+          :
+          <Button variant="contained" color="secondary" onClick={() => stop()}>
+            Stop!
+          </Button>
+      }
     </>
   )
 }
