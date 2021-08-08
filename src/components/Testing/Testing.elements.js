@@ -18,7 +18,9 @@ export const Wrapper = styled.div`
   background-image: url(${img});
   background-repeat: no-repeat;
   background-size: cover;
-  width: 60%;
+  border-radius: 20px;
+
+  width: 100%;
   height: 60%;
   padding: 20px;
 

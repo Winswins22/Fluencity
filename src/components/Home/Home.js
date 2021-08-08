@@ -97,9 +97,11 @@ export const Home = () => {
             Start
           </StartButton>
         </InfoContainer>
-        
+
       </Wrapper>
+
     </Container>
+
   )
 }
 

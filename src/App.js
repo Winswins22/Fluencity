@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
-import LiveText from './LiveText'
 import { Background } from './components'
 
 import { Home } from './components'
