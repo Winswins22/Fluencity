@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { ImCross } from 'react-icons/im'
 import {
   Container,
@@ -12,13 +12,13 @@ import {
 } from './Testing.elements'
 import VerifyText from './VerifyText'
 
-export const Testing = () => {
+export const Testing = ({ setCurrentPage, state }) => {
 
   const [ready, setReady] = useState(false)
 
   let duration = 20;
 
-  const [timeLeft, setTimeLeft] = useState(duration); // in seconds
+  const [timeLeft, setTimeLeft] = useState(state.duration); // in seconds
 
   const FormatTime = (time) => {
     // format Duration to mm:ss
@@ -27,7 +27,7 @@ export const Testing = () => {
     return MM + ":" + SS;
   }
 
-  const Tick = (time) => setTimeLeft(timeLeft-1);
+  const Tick = () => setTimeLeft(timeLeft - 1);
 
   const hanleTimeUp = () => {
     if (timeLeft === 0) {
@@ -38,7 +38,7 @@ export const Testing = () => {
   useEffect(() => {
     if (timeLeft === 0) return;
     const timer = setTimeout(() => {
-      Tick(timeLeft);
+      Tick();
     }, 1000);
     return () => clearTimeout(timer);
   });
@@ -52,7 +52,7 @@ export const Testing = () => {
             {FormatTime(timeLeft)}
           </MiniWrapper>
 
-          <MiniWrapper style={{ cursor: "pointer" }}>
+          <MiniWrapper style={{ cursor: "pointer" }} onClick={() => setCurrentPage("Home")}>
             Exit
             <Icon>
               <ImCross size="0.7em" />

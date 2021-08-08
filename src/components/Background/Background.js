@@ -1,9 +1,9 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { BackgroundAndNav } from './Background.elements'
 import { Nav } from './Background.elements'
 import { Logo } from './Background.elements'
 import { NavLinks } from './Background.elements'
-import { 
+import {
     ModeHeader,
     InDevelopmentModes,
     InDevelopmentText
@@ -20,22 +20,16 @@ import Testing from '../Testing/Testing'
 import { Results } from '../Results/Results'
 
 
-export const Background = () => {
-    const [currentPage, setCurrentPage] = useState('Home');
-    console.log(currentPage);
-
-    const HandleNavigation = (PageClicked) => {
-        setCurrentPage(PageClicked);
-    }
+export const Background = ({ HandleNavigation }) => {
 
     return (
         <BackgroundAndNav>
             <Nav>
-                <Logo onClick={() => {HandleNavigation('Home')}}></Logo>
-                <NavLinks onClick={() => {HandleNavigation('Home')}}>Home</NavLinks>
-                <NavLinks onClick={() => {HandleNavigation('Results')}}>Results</NavLinks>
+                <Logo onClick={() => { HandleNavigation('Home') }}></Logo>
+                <NavLinks onClick={() => { HandleNavigation('Home') }}>Home</NavLinks>
+                <NavLinks onClick={() => { HandleNavigation('Results') }}>Results</NavLinks>
                 <ModeHeader>Modes</ModeHeader>
-                <NavLinks onClick={() => {HandleNavigation('Testing')}}>Speaking</NavLinks>
+                <NavLinks onClick={() => { HandleNavigation('Testing') }}>Speaking</NavLinks>
                 <InDevelopmentModes>
                     Singing
                     <InDevelopmentText>   (In Development)</InDevelopmentText>
@@ -52,12 +46,6 @@ export const Background = () => {
             <BgPic4></BgPic4>
             <BgPic5></BgPic5>
             <BgPic6></BgPic6>
-
-            {currentPage === 'Home' ? <Home></Home> : null};
-            {currentPage === 'Results' ? <Results></Results> : null};
-            {currentPage === 'Testing' ? <Testing></Testing> : null};
-
-
 
         </BackgroundAndNav>
     )
