@@ -13,8 +13,6 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
   const ogState = state;
 
   //VerifyText component
-  const [prevMessage, setPrevMessage] = useState("")
-  const [message, setMessage] = useState("");
   //const message = useRef("");
 
   const [items, setItems] = useState(GetText(difficulty))
@@ -55,24 +53,24 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
     finishState()
   }, state.duration * 1000)
 
-  function extractNewWords(){
-    console.log("extractNewWords", message, prevMessage)
-    if (message === prevMessage){
-      console.log("extractNewWords nothing")
-      return ""
-    }
-    else{
-      if (message.length < prevMessage.length){
-        console.log("extractNewWords", message.split(" "))
-        return message.split(" ")
-      }
-      else if (message.length > prevMessage.length){
-        let msg = message
-        console.log("extractNewWords", msg.replace(prevMessage, "").split(" "))
-        return msg.replace(prevMessage, "").split(" ")
-      }
-    }
-  }
+  // function extractNewWords(){
+  //   console.log("extractNewWords", message, prevMessage)
+  //   if (message === prevMessage){
+  //     console.log("extractNewWords nothing")
+  //     return ""
+  //   }
+  //   else{
+  //     if (message.length < prevMessage.length){
+  //       console.log("extractNewWords", message.split(" "))
+  //       return message.split(" ")
+  //     }
+  //     else if (message.length > prevMessage.length){
+  //       let msg = message
+  //       console.log("extractNewWords", msg.replace(prevMessage, "").split(" "))
+  //       return msg.replace(prevMessage, "").split(" ")
+  //     }
+  //   }
+  // }
 
   
 
@@ -314,8 +312,7 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
   // createStream()
 
   useEffect(() => {
-    setPrevMessage(message)
-    setMessage(getMessage())
+    setBestMsg(getMessage())
   }, [msg, accurateMsg])
 
   return(
