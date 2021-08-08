@@ -1,18 +1,20 @@
 import LiveText from './components/Testing/LiveText'
+import { Background } from './components'
 
 import { Home } from './components'
 import { Testing } from './components'
+import { Results } from './components'
 
 import GlobalStyle from './GlobalStyles'
-import Results from './components/Results/Results'
 
 function App() {
   return (
     <>
+      <Background/>
       <GlobalStyle />
-      <Home />
+      {/* <Home /> */}
       {/* <LiveText /> */}
-      {/* <Testing /> */}
+      <Testing />
       {/* <Results /> */}
     </>
   );

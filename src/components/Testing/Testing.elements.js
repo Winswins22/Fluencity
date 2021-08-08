@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import img from '../../imgs/Homebg.jpg';
 
 export const Container = styled.div`
   display: flex;
@@ -11,7 +12,9 @@ export const Container = styled.div`
 `
 
 export const Wrapper = styled.div`
-  background: #ddd;
+  background-image: url(${img});
+  background-repeat: no-repeat;
+  background-size: cover;
   width: 60%;
   height: 60%;
   padding: 20px;
@@ -19,8 +22,8 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  box-shadow: 5px 5px 25px rgba(56, 118, 29, 0.8);
 
-  box-shadow: 2px 2px 25px rgba(17, 85, 204, 0.8);
 `
 
 export const MiniContainer = styled.div`
