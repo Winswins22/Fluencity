@@ -12,7 +12,7 @@ import {
 } from './Testing.elements'
 import VerifyText from './VerifyText'
 
-export const Testing = ({ setCurrentPage, state, setState }) => {
+export const Testing = ({ setCurrentPage, currentPageRef, state, setState }) => {
 
   // const [ready, setReady] = useState(false);
   //const readyRef = useRef(false);
@@ -46,7 +46,7 @@ export const Testing = ({ setCurrentPage, state, setState }) => {
             {FormatTime(timeLeft)}
           </MiniWrapper>
 
-          <MiniWrapper style={{ cursor: "pointer" }} onClick={() => setCurrentPage("Home")}>
+          <MiniWrapper style={{ cursor: "pointer" }} onClick={() => currentPageRef.current="Home"}>
             Exit
             <Icon>
               <ImCross size="0.7em" />

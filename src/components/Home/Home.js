@@ -15,7 +15,7 @@ import {
 */
 
 
-export const Home = ({setCurrentPage, state, setState}) => {
+export const Home = ({setCurrentPage, currentPageRef, state, setState}) => {
 
   const durationOptions = [
     {
@@ -81,7 +81,7 @@ export const Home = ({setCurrentPage, state, setState}) => {
         </InfoContainer>
 
         <InfoContainer>
-          <StartButton onClick={() => {setCurrentPage("Testing")}}>
+          <StartButton onClick={() => currentPageRef.current="Testing"}>
             Start
           </StartButton>
         </InfoContainer>
