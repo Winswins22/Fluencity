@@ -75,7 +75,7 @@ export const Home = ({setCurrentPage, state, setState}) => {
               style={selectStyle}
               options={levelOptions}
               placeholder="Text Difficulty"
-              onChange={value => setState({ ...state, level: value[0].value })}
+              onChange={value => setState({ ...state, Level: value[0].value })}
             />
           </SelectWrapper>
         </InfoContainer>
