@@ -1,5 +1,5 @@
 import LiveText from './LiveText'
-import Background from './components/Background/Background'
+import { Background } from './components'
 
 import { Home } from './components'
 import { Testing } from './components'
@@ -10,7 +10,7 @@ import GlobalStyle from './GlobalStyles'
 function App() {
   return (
     <>
-      <Background></Background>
+      <Background/>
       <GlobalStyle />
       {/* <Home /> */}
       {/* <LiveText /> */}
