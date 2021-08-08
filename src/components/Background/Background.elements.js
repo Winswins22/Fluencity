@@ -35,12 +35,13 @@ export const Logo = styled.div`
     margin-left: auto;
     margin-right: auto;
     padding-top: 100px;
-    padding-bottom: 25px;
-    height: 5vh;
+    padding-bottom: 75px;
+    height: 50px;
     width: 200px;
     /* border:2px solid red; */
     background-image: url(${LogoImg});
     background-repeat: no-repeat;
+    background-size: 100%;
 `
 
 export const NavLinks = styled.button`

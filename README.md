@@ -1,8 +1,8 @@
 # Fluencity
 
-[GitHub](https://github.com/Winswins22/voice-with-symblai)
+[GitHub](https://github.com/Winswins22/Fluencity)
 
-[Website](https://winswins22.github.io/voice-with-symblai/)
+[Website](https://winswins22.github.io/Fluencity/)
 
 ### To Run The App In Development Mode
 
