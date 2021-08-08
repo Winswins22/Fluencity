@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import img from '../../images/Homebg.jpg';
 
-
 export const Container = styled.div`
   display: flex;
   align-items: center;
@@ -62,6 +61,8 @@ export const StartButton = styled.div`
   align-items: center;
 
   cursor: pointer;
+  color: black;
+  text-decoration: none;
 `
 
 export const SelectWrapper = styled.div`

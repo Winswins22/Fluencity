@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { ImCross } from 'react-icons/im'
 import {
   Container,
@@ -11,11 +11,9 @@ import {
   Line
 } from './Testing.elements'
 
-export const Testing = () => {
+export const Testing = ({ setCurrentPage, state }) => {
 
-  let duration = 10;
-
-  const [timeLeft, setTimeLeft] = useState(duration); // in seconds
+  const [timeLeft, setTimeLeft] = useState(state.duration); // in seconds
 
   const FormatTime = (time) => {
     // format Duration to mm:ss
@@ -24,7 +22,7 @@ export const Testing = () => {
     return MM + ":" + SS;
   }
 
-  const Tick = (time) => setTimeLeft(timeLeft-1);
+  const Tick = () => setTimeLeft(timeLeft - 1);
 
   const hanleTimeUp = () => {
     if (timeLeft === 0) {
@@ -35,7 +33,7 @@ export const Testing = () => {
   useEffect(() => {
     if (timeLeft === 0) return;
     const timer = setTimeout(() => {
-      Tick(timeLeft);
+      Tick();
     }, 1000);
     return () => clearTimeout(timer);
   });
@@ -49,7 +47,7 @@ export const Testing = () => {
             {FormatTime(timeLeft)}
           </MiniWrapper>
 
-          <MiniWrapper style={{ cursor: "pointer" }}>
+          <MiniWrapper style={{ cursor: "pointer" }} onClick={() => setCurrentPage("Home")}>
             Exit
             <Icon>
               <ImCross size="0.7em" />
@@ -59,27 +57,6 @@ export const Testing = () => {
         </MiniContainer>
         <InfoContainer>
           <InfoSec>
-            Text text text text text text text text text text …..
-          </InfoSec>
-
-          <InfoSec style={{width: "102%"}}>
-            <Line />
-          </InfoSec>
-
-          <InfoSec>
-            Text text text text text text text text text text …..
-          </InfoSec>
-
-          <InfoSec style={{width: "102%"}}>
-            <Line />
-          </InfoSec>
-
-          <InfoSec>
-            Text text text text text text text text text text …..
-          </InfoSec>
-
-          <InfoSec style={{width: "102%"}}>
-            <Line />
           </InfoSec>
 
         </InfoContainer>

@@ -32,7 +32,7 @@ import { ImCross } from 'react-icons/im'
 import { FaEquals } from 'react-icons/fa'
 
 
-export const Results = ({ results }) => {
+export const Results = ({ HandleNavigation }) => {
 
   const LeaderboardScore = ({ rank, score }) => {
     return (
@@ -131,7 +131,7 @@ export const Results = ({ results }) => {
           <YourLeaderboard />
         </LeftColumn>
         <RightColumn>
-          <Button>
+          <Button onClick={HandleNavigation}>
             Retake test
           </Button>
           <Leaderboard />

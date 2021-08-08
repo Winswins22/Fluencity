@@ -15,13 +15,7 @@ import {
 */
 
 
-export const Home = () => {
-
-  // test duration in seconds
-  const [state, setState] = useState({
-    duration: 0,
-    level: 0,
-  });
+export const Home = ({setCurrentPage, state, setState}) => {
 
   const durationOptions = [
     {
@@ -87,7 +81,7 @@ export const Home = () => {
         </InfoContainer>
 
         <InfoContainer>
-          <StartButton>
+          <StartButton onClick={() => {setCurrentPage("Testing")}}>
             Start
           </StartButton>
         </InfoContainer>
