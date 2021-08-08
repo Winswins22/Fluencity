@@ -43,13 +43,7 @@ export const Home = () => {
     },
     {
       label: "Level 3", value: 3,
-    },
-    {
-      label: "Level 4", value: 4,
-    },
-    {
-      label: "Level 5", value: 5,
-    },
+    }
   ]
 
   const selectStyle = {
