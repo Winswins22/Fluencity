@@ -30,12 +30,6 @@ export const Testing = ({ setCurrentPage, state, setState }) => {
 
   const Tick = () => setTimeLeft(timeLeft - 1);
 
-  const hanleTimeUp = () => {
-    if (timeLeft === 0) {
-      setCurrentPage("Results");
-    }
-  }
-
   useEffect(() => {
     if (timeLeft === 0) return;
     const timer = setTimeout(() => {
@@ -44,7 +38,6 @@ export const Testing = ({ setCurrentPage, state, setState }) => {
     return () => clearTimeout(timer);
   });
 
-  hanleTimeUp();
   return (
     <Container>
       <Wrapper>

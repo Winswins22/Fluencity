@@ -1,5 +1,5 @@
 import { Background } from './components'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import { Home } from './components'
 import { Testing } from './components'
@@ -9,16 +9,18 @@ import GlobalStyle from './GlobalStyles'
 
 
 function App() {
-  const [currentPage, setCurrentPage] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const currentPageRef = useRef(0);
+
 
   const HandleNavigation = (PageClicked) => {
     setCurrentPage(PageClicked);
-    console.log(PageClicked);
+    currentPageRef.current = PageClicked;
   }
 
   // global variables to keep track of
   const [state, setState] = useState({
-    duration: 5,
+    duration: 0,
     Level: 1,
     results: {
       wpm: 0,
@@ -28,16 +30,17 @@ function App() {
   });
 
   useEffect(() => {
-    setCurrentPage("Home")
+    setCurrentPage("Home");
+    currentPageRef.current = "Home";
   },[])
   return (
     <>
       <GlobalStyle />
 
       <Background HandleNavigation={HandleNavigation}></Background>
-      {currentPage === 'Home' ? <Home setCurrentPage={setCurrentPage} state={state} setState={setState}></Home> : null};
-      {currentPage === 'Results' ? <Results setCurrentPage={setCurrentPage} state={state}></Results> : null};
-      {currentPage === 'Testing' ? <Testing setCurrentPage={setCurrentPage} state={state} setState={setState}></Testing> : null};
+      {currentPageRef.current === 'Home' ? <Home setCurrentPage={setCurrentPage} state={state} setState={setState}></Home> : null};
+      {currentPageRef.current === 'Results' ? <Results setCurrentPage={setCurrentPage} state={state}></Results> : null};
+      {currentPageRef.current === 'Testing' ? <Testing setCurrentPage={setCurrentPage} state={state} setState={setState}></Testing> : null};
 
     </>
   );
