@@ -98,7 +98,7 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
   const [active, setActive] = useState(false)
 
   const [msg, setMsg] = useState()
-  const [accurateMsg, setAccMsg] = useState()
+  const accurateMsg = "";
 
   const [bestMsg, setBestMsg] = useState("")
 
@@ -161,29 +161,29 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
   ws.onmessage = (event) => {
     // You can find the conversationId in event.message.data.conversationId;
     const data = JSON.parse(event.data);
-    if (data.type === 'message' && data.message.hasOwnProperty('data')) {
-      console.log('conversationId', data.message.data.conversationId);
-    }
-    if (data.type === 'message_response') {
-      for (let message of data.messages) {
-        if (verbose) {
-          console.log('Transcript (more accurate): ', message.payload.content);
-        }
-        setAccMsg(message.payload.content)
-      }
-    }
-    if (data.type === 'topic_response') {
-      for (let topic of data.topics) {
-        if (verbose) {
-          console.log('Topic detected: ', topic.phrases)
-        }
-      }
-    }
-    if (data.type === 'insight_response') {
-      for (let insight of data.insights) {
-        console.log('Insight detected: ', insight.payload.content);
-      }
-    }
+    // if (data.type === 'message' && data.message.hasOwnProperty('data')) {
+    //   console.log('conversationId', data.message.data.conversationId);
+    // }
+    // if (data.type === 'message_response') {
+    //   for (let message of data.messages) {
+    //     if (verbose) {
+    //       console.log('Transcript (more accurate): ', message.payload.content);
+    //     }
+    //     setAccMsg(message.payload.content)
+    //   }
+    // }
+    // if (data.type === 'topic_response') {
+    //   for (let topic of data.topics) {
+    //     if (verbose) {
+    //       console.log('Topic detected: ', topic.phrases)
+    //     }
+    //   }
+    // }
+    // if (data.type === 'insight_response') {
+    //   for (let insight of data.insights) {
+    //     console.log('Insight detected: ', insight.payload.content);
+    //   }
+    // }
     if (data.type === 'message' && data.message.hasOwnProperty('punctuated')) {
       if (verbose) {
         console.log('Live transcript (less accurate): ', data.message.punctuated.transcript)
@@ -274,7 +274,7 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
       ws.close()
       setActive(false)
       readyRef.current = false;
-      setAccMsg(null)
+      //setAccMsg(null)
       setMsg(null)
     }
   }
