@@ -98,8 +98,8 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
   // LiveText component
   const [active, setActive] = useState(false)
 
-  const [msg, setMsg] = useState()
-  const accurateMsg = "";
+  let msg = ""
+  let accurateMsg = "";
 
   const [bestMsg, setBestMsg] = useState("")
 
@@ -190,7 +190,8 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
       if (verbose) {
         console.log('Live transcript (less accurate): ', data.message.punctuated.transcript)
       }
-      setMsg(data.message.punctuated.transcript)
+      msg = data.message.punctuated.transcript
+      getMessage()
     }
     // console.log(`Response type: ${data.type}. Object: `, data);
   };
@@ -277,7 +278,7 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
       setActive(false)
       readyRef.current = false;
       //setAccMsg(null)
-      setMsg(null)
+      //setMsg(null)
     }
   }
 
@@ -302,10 +303,6 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
   //   .catch(err => console.log("err;", err))
 
   // createStream()
-
-  useEffect(() => {
-    getMessage()
-  }, [msg, accurateMsg])
 
   return(
   <>
