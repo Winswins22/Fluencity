@@ -32,7 +32,7 @@ import { ImCross } from 'react-icons/im'
 import { FaEquals } from 'react-icons/fa'
 
 
-export const Results = ({setCurrentPage, state}) => {
+export const Results = ({setCurrentPage, currentPageRef, state}) => {
 
   const LeaderboardScore = ({ rank, score }) => {
     return (
@@ -131,7 +131,7 @@ export const Results = ({setCurrentPage, state}) => {
           <YourLeaderboard />
         </LeftColumn>
         <RightColumn>
-          <Button onClick={setCurrentPage("Home")}>
+          <Button onClick={() => currentPageRef.current="Home"}>
             Retake test
           </Button>
           <Leaderboard />

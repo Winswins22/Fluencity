@@ -16,6 +16,7 @@ function App() {
   const HandleNavigation = (PageClicked) => {
     setCurrentPage(PageClicked);
     currentPageRef.current = PageClicked;
+    console.log(PageClicked);
   }
 
   // global variables to keep track of
@@ -38,9 +39,9 @@ function App() {
       <GlobalStyle />
 
       <Background HandleNavigation={HandleNavigation}></Background>
-      {currentPageRef.current === 'Home' ? <Home setCurrentPage={setCurrentPage} state={state} setState={setState}></Home> : null};
-      {currentPageRef.current === 'Results' ? <Results setCurrentPage={setCurrentPage} state={state}></Results> : null};
-      {currentPageRef.current === 'Testing' ? <Testing setCurrentPage={setCurrentPage} state={state} setState={setState}></Testing> : null};
+      {currentPageRef.current === 'Home' ? <Home setCurrentPage={setCurrentPage} currentPageRef={currentPageRef} state={state} setState={setState}></Home> : null};
+      {currentPageRef.current === 'Results' ? <Results setCurrentPage={setCurrentPage} currentPageRef={currentPageRef} state={state}></Results> : null};
+      {currentPageRef.current === 'Testing' ? <Testing setCurrentPage={setCurrentPage} currentPageRef={currentPageRef} state={state} setState={setState}></Testing> : null};
 
     </>
   );
