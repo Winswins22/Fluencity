@@ -69,9 +69,7 @@ const texts = [
 
 // difficulty can be from 1-3
 function GetText(difficulty = 1){
-  console.log("difficulty", difficulty)
-  console.warn("difficulty", difficulty)
-
+  console.log("GetText")
   return texts[difficulty-1][getRandomNumberBetween(0, texts[difficulty-1].length-1)]
 }
 

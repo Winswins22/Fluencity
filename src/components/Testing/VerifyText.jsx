@@ -4,13 +4,11 @@ import LiveText from './LiveText'
 import GetText from './GetText'
 
 //  difficulty: 1-3
-const VerifyText = ({difficulty=1}) => {
+const VerifyText = ({setReady, difficulty=1}) => {
 
   const [prevMessage, setPrevMessage] = useState("")
   const [message, setMessage] = useState("")
-  const [ready, setReady] = useState(false)
 
-  console.log("difficultyBefore", difficulty)
   const items = GetText(difficulty)
 
   const title = items.title
@@ -18,15 +16,9 @@ const VerifyText = ({difficulty=1}) => {
   const wordsToDisplay = items.text.split(" ")
   const wordsToSay = items.text.split(/[ ,]+/)
 
-  let coloredWords = wordsToDisplay
-
-  let currentSentenceIndex = 0
-  // an array of bools. 
-  let isCorrectlySaid = []
-
   function extractNewWords(){
     if (message === prevMessage){
-      return null
+      return ""
     }
     else{
       if (message.length < prevMessage.length){
@@ -40,59 +32,24 @@ const VerifyText = ({difficulty=1}) => {
   }
 
   function checkWords(){
-    let newWords = extractNewWords()
 
-    // check for next 2 words
-    for (let i = 0; i < newWords.length; i ++){
-      if (newWords[i].toLowerCase === wordsToSay[i + currentSentenceIndex].toLowerCase){
-        isCorrectlySaid.push(true)
-        currentSentenceIndex += 1
-      }
-      else if (newWords[i].toLowerCase === wordsToSay[i + currentSentenceIndex + 1].toLowerCase){
-        isCorrectlySaid.push(false)
-        isCorrectlySaid.push(true)
-        currentSentenceIndex += 2
-      }
-      else{
-        isCorrectlySaid.push(false)
-        currentSentenceIndex += 1
-      }
-    }
   }
 
   function outputWords(){
-    for (let i = 0; i < wordsToDisplay.length; i ++){
-      if (i > isCorrectlySaid.length){
-        coloredWords.push(<h1> {wordsToDisplay[i]} </h1>)
-      }
-      else if (isCorrectlySaid[i]){
-        coloredWords.push(<h1 style={{color:"green"}}> {wordsToDisplay[i]} </h1>)
-      }
-      else if (!isCorrectlySaid[i]){
-        coloredWords.push(<h1 style={{color:"red"}}> {wordsToDisplay[i]} </h1>)
-      }
-    }
-
-    return(
-      <>
+    return (
+      <div style={{marginTop:"20vh"}}>
         {
-          ready ?
-            <h1> {title} </h1>
-          :
-            <></>
+          wordsToDisplay.map((word) => {
+          return(
+            <>
+              
+              <h2 style={{display: "inline"}}> {word} </h2>
+              
+            </>
+          )
+          })
         }
-        {
-          ready ?
-            
-            coloredWords.map((item) => {
-              return <>{item}</>
-            })
-          :
-            <></>
-        }
-
-
-      </>
+      </div>
     )
   }
 
@@ -105,7 +62,7 @@ const VerifyText = ({difficulty=1}) => {
 
   return (
     <>
-      <LiveText verbose={true} setReady={setReady} setMessage={setMessage}></LiveText>
+      {/* <LiveText verbose={true} setReady={setReady} setMessage={setMessage}></LiveText> */}
 
       {
         outputWords()
