@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/Fluencity/static/js/main.5da777d2.chunk.js",
-    "main.js.map": "/Fluencity/static/js/main.5da777d2.chunk.js.map",
+    "main.js": "/Fluencity/static/js/main.9fa14a02.chunk.js",
+    "main.js.map": "/Fluencity/static/js/main.9fa14a02.chunk.js.map",
     "runtime-main.js": "/Fluencity/static/js/runtime-main.f70b3b15.js",
     "runtime-main.js.map": "/Fluencity/static/js/runtime-main.f70b3b15.js.map",
     "static/js/2.02c2fbba.chunk.js": "/Fluencity/static/js/2.02c2fbba.chunk.js",
@@ -15,6 +15,6 @@
   "entrypoints": [
     "static/js/runtime-main.f70b3b15.js",
     "static/js/2.02c2fbba.chunk.js",
-    "static/js/main.5da777d2.chunk.js"
+    "static/js/main.9fa14a02.chunk.js"
   ]
 }
