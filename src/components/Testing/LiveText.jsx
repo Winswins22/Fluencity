@@ -15,12 +15,13 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
   //VerifyText component
   //const message = useRef("");
 
-  const [items, setItems] = useState(GetText(difficulty))
+  // const [items, setItems] = useState(GetText(difficulty))
+  const itemsRef = useRef(GetText(difficulty))
   const readyRef = useRef(false)
-  const title = items.title
+  const title = itemsRef.current.title
 
-  const wordsToDisplay = items.text
-  const wordsToSay = items.text.split(/[ ,]+/)
+  const wordsToDisplay = itemsRef.current.text
+  const wordsToSay = itemsRef.current.text.split(/[ ,]+/)
 
   const currentIndexRef = useRef(0);
   const correctRef = useRef(0);
