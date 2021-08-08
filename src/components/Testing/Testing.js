@@ -86,8 +86,8 @@ export const Testing = ({ setCurrentPage, state }) => {
           </InfoSec> */}
 
           <InfoSec>
-
-            <VerifyText setReady={setReady}></VerifyText>
+            
+            <VerifyText difficulty={state.Level} setReady={setReady}></VerifyText>
 
           </InfoSec>
 
