@@ -132,24 +132,30 @@ const LiveText = ({state, setState, difficulty = 1, verbose = true}) => {
   }
 
   function checkWords(){
-
-    if (currentIndexRef.current === wordsToSay.length){
-      alert("via length")
-      finishState()
-    }
-
-    let arry = bestMsg.split(" ");
-
-    for (let i = 0; i < arry.length; i ++){
-      if (arry[i].toLowerCase === wordsToSay[currentIndexRef.current].toLowerCase){
-        correctRef.current = correctRef.current + 1;
-        currentIndexRef.current = currentIndexRef.current + 1
-        return
+    try{
+      if (currentIndexRef.current === wordsToSay.length){
+        alert("via length")
+        finishState()
       }
+  
+      let arry = bestMsg.split(" ");
+  
+      for (let i = 0; i < arry.length; i ++){
+        if (arry[i].toLowerCase === wordsToSay[currentIndexRef.current].toLowerCase){
+          correctRef.current = correctRef.current + 1;
+          currentIndexRef.current = currentIndexRef.current + 1
+          return
+        }
+      }
+      wrongRef.current = wrongRef.current + 1;
+      currentIndexRef.current = currentIndexRef.current + 1
+      return
     }
-    wrongRef.current = wrongRef.current + 1;
-    currentIndexRef.current = currentIndexRef.current + 1
-    return
+    catch{
+      finishState()
+      return
+    }
+    
     
   }
 
