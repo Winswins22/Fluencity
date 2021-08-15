@@ -1,6 +1,6 @@
 # Fluencity
 
-[GitHub](https://github.com/Winswins22/Fluencity)
+[Devpost](https://devpost.com/software/fluencity)
 
 [Website](https://winswins22.github.io/Fluencity/)
 
