@@ -10,7 +10,7 @@
 * Fork and clone the project:
 
 ```
-> $ git clone https://github.com/Winswins22/voice-with-symblai.git
+> $ git clone https://github.com/Winswins22/Fluencity.git
 ```
 
 Then install the dependencies:
